@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block content %}
+<section class="single-book" data-book="{{ book.slug }}" itemscope itemtype="http://schema.org/Book">
+    <meta itemprop="url" content="/book/{{ book.slug }}" />
+    <meta itemprop="author" content="{{ book.author.full_name }}" />
+    <meta itemprop="publisher" content="{{ book.author.full_name }}" />
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="sticky-left-column">
+                    <div class="book-cover">
+                        <img src="{{ book.image.url }}" alt="{{ book.name }}" class="img-fluid" itemprop="image">
+                    </div>
+
+                    <div class="social-btns">
+                        <a target="_blank" aria-label="{% trans 'Share with Facebook' %}"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&title={{ book.name }}"
+                            class="fb-xfbml-parse-ignore btn facebook">
+                            <!-- Facebook SVG -->
+                        </a>
+                        <a class="btn twitter" href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                            data-show-count="false" aria-label="{% trans 'Share with X' %}" target="blank">
+                            <!-- Twitter SVG -->
+                        </a>
+                        <a class="btn pinterest"
+                            href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&description={{ book.name }}"
+                            aria-label="{% trans 'Share with Pinterest' %}" target="blank">
+                            <!-- Pinterest SVG -->
+                        </a>
+                        <a class="btn email" aria-label="{% trans 'Share with Email' %}"
+                            href="mailto:?subject=Check%20out%20{{ book.name }}%20&amp;body=I%20thought%20you%20might%20be%20interested%20in%20this%20page:%20{{ request.build_absolute_uri }}%20-%20{{ book.name }}"
+                            target="blank">
+                            <!-- Email SVG -->
+                        </a>
+                    </div>
+                    {% if book.url %}
+                    <div class="download read py-3">
+                        <a download href="{{ book.file.url }}"
+                            class="w-100 btn btn-primary btn-rounded d-flex justify-content-center">
+                            <!-- Download SVG -->
+                            <span class="mx-2">{% trans 'Download' %}</span>
+                        </a>
+                        <a href="{{ book.file.url }}"
+                            class="w-100 mt-4 btn btn-warning btn-rounded d-flex justify-content-center">
+                            <!-- Read SVG -->
+                            <span class="mx-2">{% trans 'Read' %}</span>
+                        </a>
+                    </div>
+                    {% else %}
+                    {% endif %}
+                    
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <h1 itemprop="name" class="h3" dir="auto">{{ book.name }}</h1>
+                <div class="book-rating general" itemprop="aggregateRating" itemscope
+                    itemtype="http://schema.org/AggregateRating">
+                    <div class="d-flex align-items-center gap-2">
+                        <div id="rating-container"></div>
+                        <div class="whole-rating">
+                            <span class="average">2 {% trans 'Avg rating' %}</span><span
+                                class="separator">—</span><span>{{ book.comments.count|default:2 }}</span>
+                            {% trans 'Votes' %}
+                        </div>
+                    </div>
+                    <meta itemprop="ratingValue" content="2" />
+                    <meta itemprop="ratingCount" content="{{ book.comments.count|default:2 }}" />
+                </div>
+
+                <table class="table book-meta" style="--bs-body-bg: none;">
+                    <tbody>
+                        <tr>
+                            <td>{% trans 'Book name' %}:</td>
+                            <td>
+                                <span itemprop="bookName">{{ book.name }}</span>
+                                <span>({{ book.created_at.year }})</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Category' %}:</td>
+                            <td>
+                                <a itemprop="category" href="">{{ book.category.name }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Authors' %}:</td>
+                            <td>
+                                <a href="" itemprop="author">{{ book.author.full_name }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Pages' %}:</td>
+                            <td>
+                                <span itemprop="numberOfPages">{{ book.pages|default:'__' }} {% trans 'pages' %}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'ISBN13' %}:</td>
+                            <td>
+                                <span itemprop="isbn">{{ book.isbn|default:'__' }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Language' %}:</td>
+                            <td itemprop="Language">
+                                {{ book.language.name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Type' %}:</td>
+                            <td>
+                                <div class="badge badge-danger p-2">{{ book.type|default:"__" }}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {% if user.is_authenticated and user.email %}
+                {% comment %} {% include 'book_actions.html' with book=book %} {% endcomment %}
+                {% endif %}
+                <div class="mt-5 d-flex justify-content-center">
+                    <nav aria-label="Next and Previous navigation" class="w-100">
+                        <ul class="pagination d-flex justify-content-between">
+                            {% if book.previous %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-primary" href="{% url 'book:show' book.previous.slug %}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo; {% trans 'Previous' %}</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if book.next %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-primary" href=""
+                                    aria-label="Next">
+                                    <span aria-hidden="true">{% trans 'Next' %} &raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="book-description" itemprop="description">
+                    {{ book.body|safe }}
+                </div>
+
+                <div class="row mt-5 mb-3">
+                    <div class="col-lg-6 col-6">
+                        <h2>{% trans 'Book reviews' %}</h2>
+                    </div>
+                    <div class="col-lg-6 col-6 text-right">
+                        <button class="btn btn-primary btn-rounded shadow add-review-collapse" data-toggle="collapse"
+                            data-target="#addReview" aria-expanded="false" aria-controls="addReview">
+                            {% trans 'Write a review' %}
+                        </button>
+                    </div>
+                </div>
+                {% comment %} {% include 'review_form.html' with book=book %} {% endcomment %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+<script>
+    function displayStars(averageRating) {
+        const container = document.getElementById('rating-container');
+        container.innerHTML = '';
+
+        const roundedRating = Math.round(averageRating * 2) / 2;
+
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement('span');
+            if (i <= roundedRating) {
+                star.classList.add('star');
+                star.innerHTML = '&#9733;';
+            } else if (i - roundedRating === 0.5) {
+                star.classList.add('star');
+                star.innerHTML = '&#9734;';
+            } else {
+                star.classList.add('star', 'empty-star');
+                star.innerHTML = '&#9733;';
+            }
+            container.appendChild(star);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        displayStars(5);
+    });
+</script>
+{% endblock %}
