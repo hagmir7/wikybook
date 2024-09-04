@@ -250,163 +250,21 @@
                             <h2>Popular Authors</h2>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/987/books" class="text-center">
-                                <img src="https://d-pdf.com/resources/images/noavatar.png" alt="Christina Lauren" class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/987/books"> Christina Lauren</a>
+                    {% for author in authors %}
+                        <div class="col-lg-12 col-md-6 author">
+                            <div class="author-photo">
+                                <a href="{% url "show_author" author.slug %}" class="text-center">
+                                    <img src="https://d-pdf.com/resources/images/noavatar.png" alt="{{ author.full_name }}" class="rounded-circle">
+                                </a>
                             </div>
-                            <div class="author-books">6 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/2320/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Sophie Lark " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/2320/books"> Sophie Lark</a>
+                            <div class="author-info">
+                                <div class="author-name">
+                                    <a href="{% url "show_author" author.slug %}"> {{ author.full_name }}</a>
+                                </div>
+                                <div class="author-books">{{ author.books.count }} books</div>
                             </div>
-                            <div class="author-books">13 books</div>
                         </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/2450/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="L. J. Shen " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/2450/books"> L. J. Shen</a>
-                            </div>
-                            <div class="author-books">9 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5109/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Krista Street " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5109/books"> Krista Street</a>
-                            </div>
-                            <div class="author-books">6 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5455/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Clarissa Wild " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5455/books"> Clarissa Wild</a>
-                            </div>
-                            <div class="author-books">3 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5457/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Brittanée Nicole " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5457/books"> Brittanée Nicole</a>
-                            </div>
-                            <div class="author-books">5 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5497/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Jennifer Millikin " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5497/books"> Jennifer Millikin</a>
-                            </div>
-                            <div class="author-books">3 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5580/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Nisi Shawl " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5580/books"> Nisi Shawl</a>
-                            </div>
-                            <div class="author-books">2 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5581/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Gregg Olsen " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5581/books"> Gregg Olsen</a>
-                            </div>
-                            <div class="author-books">3 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5590/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Jacob Peppers " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5590/books"> Jacob Peppers</a>
-                            </div>
-                            <div class="author-books">1 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5591/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Kat T. Masen " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5591/books"> Kat T. Masen</a>
-                            </div>
-                            <div class="author-books">1 books</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 author">
-                        <div class="author-photo">
-                            <a href="/author/5592/books" class="text-center"><img src="https://d-pdf.com/resources/images/noavatar.png"
-                                    alt="Penn Cole " class="rounded-circle"></a>
-
-                        </div>
-                        <div class="author-info">
-                            <div class="author-name">
-                                <a href="/author/5592/books"> Penn Cole</a>
-                            </div>
-                            <div class="author-books">3 books</div>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </div>

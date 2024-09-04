@@ -8,8 +8,6 @@
     <meta itemprop="url" content="/book/{{ book.slug }}" />
     <meta itemprop="author" content="{{ book.author.full_name }}" />
     <meta itemprop="publisher" content="{{ book.author.full_name }}" />
-
-
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -63,7 +61,13 @@
                 <div class="book-rating general" itemprop="aggregateRating" itemscope
                     itemtype="http://schema.org/AggregateRating">
                     <div class="d-flex align-items-center gap-2">
-                        <div id="rating-container"></div>
+                        <div id="rating-container">
+                            {% include "components/start.html" %}
+                            {% include "components/start.html" %}
+                            {% include "components/start.html" %}
+                            {% include "components/start.html" %}
+                            {% include "components/start.html" %}
+                        </div>
                         <div class="whole-rating">
                             <span class="average">2 {% trans 'Avg rating' %}</span><span
                                 class="separator">—</span><span>{{ book.comments.count|default:2 }}</span>
@@ -90,35 +94,42 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{% trans 'Authors' %}:</td>
+                            <td>{% trans 'Author' %}:</td>
                             <td>
                                 <a href="" itemprop="author">{{ book.author.full_name }}</a>
                             </td>
                         </tr>
+
+                        {% if book.pages %}
                         <tr>
                             <td>{% trans 'Pages' %}:</td>
                             <td>
                                 <span itemprop="numberOfPages">{{ book.pages|default:'__' }} {% trans 'pages' %}</span>
                             </td>
                         </tr>
+                        {% endif %}
+                        {% if book.isbn %}
                         <tr>
                             <td>{% trans 'ISBN13' %}:</td>
                             <td>
                                 <span itemprop="isbn">{{ book.isbn|default:'__' }}</span>
                             </td>
                         </tr>
+                        {% endif %}
                         <tr>
                             <td>{% trans 'Language' %}:</td>
                             <td itemprop="Language">
                                 {{ book.language.name }}
                             </td>
                         </tr>
+                        {% if book.type %}
                         <tr>
                             <td>{% trans 'Type' %}:</td>
                             <td>
                                 <div class="badge badge-danger p-2">{{ book.type|default:"__" }}</div>
                             </td>
                         </tr>
+                        {% endif %}
                     </tbody>
                 </table>
 
@@ -128,9 +139,9 @@
                 <div class="mt-5 d-flex justify-content-center">
                     <nav aria-label="Next and Previous navigation" class="w-100">
                         <ul class="pagination d-flex justify-content-between">
-                            {% if book.previous %}
+                            {% if book.pre %}
                             <li class="page-item">
-                                <a class="page-link btn btn-primary" href="{% url 'book:show' book.previous.slug %}"
+                                <a class="page-link btn btn-primary" href="{% url 'show_book' book.pre.slug %}"
                                     aria-label="Previous">
                                     <span aria-hidden="true">&laquo; {% trans 'Previous' %}</span>
                                 </a>
@@ -138,7 +149,7 @@
                             {% endif %}
                             {% if book.next %}
                             <li class="page-item">
-                                <a class="page-link btn btn-primary" href=""
+                                <a class="page-link btn btn-primary" href="{% url 'show_book' book.next.slug %}"
                                     aria-label="Next">
                                     <span aria-hidden="true">{% trans 'Next' %} &raquo;</span>
                                 </a>
@@ -151,19 +162,6 @@
                 <div class="book-description" itemprop="description">
                     {{ book.body|safe }}
                 </div>
-
-                <div class="row mt-5 mb-3">
-                    <div class="col-lg-6 col-6">
-                        <h2>{% trans 'Book reviews' %}</h2>
-                    </div>
-                    <div class="col-lg-6 col-6 text-right">
-                        <button class="btn btn-primary btn-rounded shadow add-review-collapse" data-toggle="collapse"
-                            data-target="#addReview" aria-expanded="false" aria-controls="addReview">
-                            {% trans 'Write a review' %}
-                        </button>
-                    </div>
-                </div>
-                {% comment %} {% include 'review_form.html' with book=book %} {% endcomment %}
             </div>
         </div>
     </div>

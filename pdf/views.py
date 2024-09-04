@@ -4,20 +4,80 @@ import fitz  # PyMuPDF
 from .forms import BookForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
+from django.core.paginator import Paginator
 
 
 def index(request):
-    books = Book.objects.all().order_by('-created_at')[0:50]
-    context = {"books" : books}
+    books = Book.objects.all().order_by("-created_at")[0:50]
+    authors = Author.objects.all().order_by("-created_at")[0:50]
+    context = {"books": books, "authors": authors}
     return render(request, "index.html", context)
+
+
+def blogs(request):
+    posts_list = Post.objects.all().order_by("-created_at")
+    paginator = Paginator(posts_list, 50)
+    page_number = request.GET.get("page")
+    posts = paginator.get_page(page_number)
+    context = {"posts": posts, "title": "Weky Books: Your Guide to Book Summaries"}
+    return render(request, "blogs/list.html", context)
+
+
+def show_blog(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    context = {
+        "post": post,
+        "title": post.title,
+        "image" : post.image,
+        "description" : post.description,
+        "keyword" : post.tags
+
+    }
+    return render(request, "blog.html", context)
+
+
+def books(request):
+    books_list = Book.objects.all().order_by('created_at')
+    paginator = Paginator(books_list, 50)
+    page_number = request.GET.get("page")
+    books = paginator.get_page(page_number)
+    context = {"books": books, "title": "Weky Books: Find Your Favorite Books"}
+    return render(request, "books/list.html", context)
 
 
 def show_book(request, slug):
     book = get_object_or_404(Book, slug=slug)
+    books = Book.objects.filter(category=book.category).order_by("created_at")
     context = {
-        "book" : book
+        "book": book,
+        "books": books,
+        "title": book.name,
+        "description": book.description,
+        "keywords": book.tags,
+        "image": book.image,
     }
-    return render(request, 'books/show.html', context)
+    return render(request, "books/show.html", context)
+
+
+def authors(request):
+    authors_list = Book.objects.all().order_by("created_at")
+    paginator = Paginator(authors_list, 50)
+    page_number = request.GET.get("page")
+    authors = paginator.get_page(page_number)
+    context = {"authors": authors, "title": "Book authors - Weky books "}
+    return render(request, "authors/list.html", context)
+
+
+def show_author(request, slug):
+    author = get_object_or_404(Author, slug=slug)
+    books = Book.objects.filter(author=author).order_by('created_at')
+    context = {
+        "books" : books,
+        "author": author,
+        "title": f"{author.full_name} - Books"
+    }
+    return render(request, "authors/show.html", context)
+
 
 def upload(request):
     if request.method == "POST":
@@ -57,7 +117,7 @@ def upload(request):
             status=200,
         )
 
-    return render(request, 'upload.html')
+    return render(request, "upload.html")
 
 
 def book_create(request):
@@ -69,9 +129,7 @@ def book_create(request):
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
-            return redirect('/book/create')
+            return redirect("/book/create")
 
-    context = {
-        "form" : form
-    }
+    context = {"form": form}
     return render(request, "books/create.html", context)
