@@ -15,6 +15,10 @@ urlpatterns = [
     path("books", books, name="books"),
     path("authors", authors, name="authors"),
     path("author/<str:slug>/books", show_author, name="show_author"),
+
+
+    path("privacy-policy", privacy, name="privacy"),
+    path("contact", contact, name="contact"),
     # Scraping
     path("zpdf", zpdf, name="zpdf"),
     path("dpdf", dpdf, name="dpdf"),

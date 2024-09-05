@@ -133,3 +133,11 @@ def book_create(request):
 
     context = {"form": form}
     return render(request, "books/create.html", context)
+
+
+def privacy(request):
+    return render(request, "privacy.html")
+
+
+def contact(request):
+    return render(request, "contact.html")

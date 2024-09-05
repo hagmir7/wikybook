@@ -31,8 +31,6 @@
 
 <body class="mb-0 pb-0">
   <header class="header d-flex justify-content-between px-3">
-
-
     <div class="mt-2">
       <div class="logo">
         <a href="/"><img src="{% static "imgs/Wikybook-without-bg.png" %}" alt="Logo"></a>
@@ -46,55 +44,6 @@
       <div class="bar"></div>
     </div>
   </header>
-
-  <!-- login Model -->
-  <div class="modal login-box" id="login-box" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="card card-no-border">
-            <div class="card-body">
-              <img src="/images/site-view-options/d-pdf-logo-1(1).png"
-                class="d-flex ml-auto mr-auto mb-4 mt-2 img-fluid" alt="Login">
-              <div class="social-login">
-              </div>
-              <form action="/login" method="post" class="form-horizontal">
-                <div class="form-group">
-                  <div class="col-xs-12">
-                    <input name="login" class="form-control" placeholder="Login" value="" type="text" required>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-xs-12">
-                    <input name="password" class="form-control" placeholder="Password" type="password" required>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-8 col-xs-8 text-left">
-                      <div class="custom-control custom-checkbox mt-2">
-                        <input type="checkbox" name="rememberMe" class="custom-control-input" id="rememberMe">
-                        <label class="custom-control-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>
-                    <div class="col-md-4 col-xs-4">
-                      <button class="btn btn-primary shadow btn-block">Login</button>
-                    </div>
-                    <div class="col-md-12 mt-3 additional-text text-center">
-                      <a href="/password-recovery">Forgot password?</a>
-                    </div>
-                  </div>
-                  <div class="text-black-50 mt-3 additional-text text-center">Do not have an account? <a
-                      href="/registration">Sign Up</a></div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   {% block content %}{% endblock content %}
 
   {% include "components/footer.html" %}
@@ -108,36 +57,6 @@
 
   <script src="https://d-pdf.com/themes/default/resources/js/plugins.js"></script>
   <script src="https://d-pdf.com/themes/default/resources/js/custom.js"></script>
-
-  <script>
-    $('.home-book-carousel').owlCarousel({
-      center: true,
-      items: 3,
-      loop: true,
-      margin: 0,
-      merge: true,
-      responsive: {
-        2600: {
-          items: 6
-        },
-        2000: {
-          items: 5
-        },
-        1800: {
-          items: 4
-        },
-        1200: {
-          items: 3
-        },
-        600: {
-          items: 2
-        },
-        0: {
-          items: 1
-        }
-      }
-    });
-  </script>
 
 </body>
 
