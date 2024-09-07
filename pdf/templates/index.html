@@ -63,7 +63,7 @@
                                 <div class="author-name">
                                     <a href="{% url "show_author" author.slug %}"> {{ author.full_name }}</a>
                                 </div>
-                                <div class="author-books">{{ author.book.count }} books</div>
+                                <div class="author-books">{{ author.book_set.count }} books</div>
                             </div>
                         </div>
                     {% endfor %}

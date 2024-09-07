@@ -33,12 +33,12 @@ def show_blog(request, slug):
         "keyword" : post.tags
 
     }
-    return render(request, "blog.html", context)
+    return render(request, "blogs/show.html", context)
 
 
 def books(request):
-    books_list = Book.objects.all().order_by('created_at')
-    paginator = Paginator(books_list, 50)
+    books_list = Book.objects.all().order_by("-created_at")
+    paginator = Paginator(books_list, 60)
     page_number = request.GET.get("page")
     books = paginator.get_page(page_number)
     context = {"books": books, "title": "Weky Books: Find Your Favorite Books"}
@@ -60,7 +60,7 @@ def show_book(request, slug):
 
 
 def authors(request):
-    authors_list = Book.objects.all().order_by("created_at")
+    authors_list = Author.objects.all().order_by("-created_at")
     paginator = Paginator(authors_list, 50)
     page_number = request.GET.get("page")
     authors = paginator.get_page(page_number)
@@ -69,8 +69,8 @@ def authors(request):
 
 
 def show_author(request, slug):
-    author = get_object_or_404(Author, slug=slug)
-    books = Book.objects.filter(author=author).order_by('created_at')
+    author = Author.objects.get(slug=slug)
+    books = Book.objects.filter(author=author).order_by('-created_at')
     context = {
         "books" : books,
         "author": author,
@@ -141,3 +141,7 @@ def privacy(request):
 
 def contact(request):
     return render(request, "contact.html")
+
+
+def about(request):
+    return render(request, "about.html")

@@ -20,33 +20,26 @@
                         <a target="_blank" aria-label="{% trans 'Share with Facebook' %}"
                             href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&title={{ book.name }}"
                             class="fb-xfbml-parse-ignore btn facebook">
-                            <!-- Facebook SVG -->
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-facebook"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg>
                         </a>
                         <a class="btn twitter" href="https://twitter.com/share?ref_src=twsrc%5Etfw"
                             data-show-count="false" aria-label="{% trans 'Share with X' %}" target="blank">
-                            <!-- Twitter SVG -->
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-twitter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" /></svg>
                         </a>
                         <a class="btn pinterest"
                             href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&description={{ book.name }}"
                             aria-label="{% trans 'Share with Pinterest' %}" target="blank">
-                            <!-- Pinterest SVG -->
-                        </a>
-                        <a class="btn email" aria-label="{% trans 'Share with Email' %}"
-                            href="mailto:?subject=Check%20out%20{{ book.name }}%20&amp;body=I%20thought%20you%20might%20be%20interested%20in%20this%20page:%20{{ request.build_absolute_uri }}%20-%20{{ book.name }}"
-                            target="blank">
-                            <!-- Email SVG -->
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-pinterest"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>
                         </a>
                     </div>
                     {% if book.url %}
                     <div class="download read py-3">
-                        <a download href="{{ book.file.url }}"
-                            class="w-100 btn btn-primary btn-rounded d-flex justify-content-center">
-                            <!-- Download SVG -->
+                        <a download href="{{ book.file.url }}" class="w-100 btn btn-primary btn-rounded d-flex justify-content-center">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
                             <span class="mx-2">{% trans 'Download' %}</span>
                         </a>
-                        <a href="{{ book.file.url }}"
-                            class="w-100 mt-4 btn btn-warning btn-rounded d-flex justify-content-center">
-                            <!-- Read SVG -->
+                        <a href="{{ book.file.url }}" class="w-100 mt-4 btn btn-warning btn-rounded d-flex justify-content-center">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-book"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6l0 13" /><path d="M12 6l0 13" /><path d="M21 6l0 13" /></svg>
                             <span class="mx-2">{% trans 'Read' %}</span>
                         </a>
                     </div>
@@ -166,34 +159,4 @@
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block footer %}
-<script>
-    function displayStars(averageRating) {
-        const container = document.getElementById('rating-container');
-        container.innerHTML = '';
-
-        const roundedRating = Math.round(averageRating * 2) / 2;
-
-        for (let i = 1; i <= 5; i++) {
-            const star = document.createElement('span');
-            if (i <= roundedRating) {
-                star.classList.add('star');
-                star.innerHTML = '&#9733;';
-            } else if (i - roundedRating === 0.5) {
-                star.classList.add('star');
-                star.innerHTML = '&#9734;';
-            } else {
-                star.classList.add('star', 'empty-star');
-                star.innerHTML = '&#9733;';
-            }
-            container.appendChild(star);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        displayStars(5);
-    });
-</script>
 {% endblock %}

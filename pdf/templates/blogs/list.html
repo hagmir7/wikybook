@@ -7,357 +7,92 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-12">
-                <h1 class="h3">Wecima - Your Ultimate Book PDF - Reviews, Summaries, and Author Insights</h1>
+                <h1 class="h3">{{ title }}</h1>
             </div>
         </div>
         <div class="row">
+
+            {% for post in posts %}
             <div class="col-lg-4 col-md-6 mb-3">
                 <div class="post">
                     <div class="post-img">
-                        <a href="https://wecima.us/blog/the-wonderful-wizard-of-oz-a-book-summery">
-                            <img src="/storage/01J4FDQMBAC36JNEWNSSDVAQNV.png"
-                                alt="The Wonderful Wizard of Oz : A book summery">
+                        <a href="{% url "show_blog" post.slug %}">
+                            <img src="{{ post.image.url }}"
+                                alt="{{ post.title }}">
                         </a>
                     </div>
                     <div class="post-info">
                         <div class="post-meta">
-                            Aug 04, 2024
+                            {{ post.created_at }}
                         </div>
-                        <a href="https://wecima.us/blog/the-wonderful-wizard-of-oz-a-book-summery" class="post-title">
-                            <h2 class="h4 text-black">The Wonderful Wizard of Oz : A book summery</h2>
+                        <a href="{% url "show_blog" post.slug %}" class="post-title"> 
+                            <h2 class="h4 text-black">{{ post.title }}</h2>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/summary-of-the-making-of-a-manager-by-julie-zhuo">
-                            <img src="/storage/01J3N8A9AEXZY0PQ485J2WV5GD.png"
-                                alt="Summary of &quot;The Making of a Manager&quot; by Julie Zhuo">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 25, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/summary-of-the-making-of-a-manager-by-julie-zhuo"
-                            class="post-title">
-                            <h2 class="h4 text-black">Summary of &quot;The Making of a Manager&quot; by Julie Zhuo</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/say-you-swear-by-meagan-brandy-summary">
-                            <img src="/storage/01J3G2HDP6HHSY8FQDM4WKF6A1.png"
-                                alt="&quot;Say You Swear&quot; by Meagan Brandy - Summary">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 23, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/say-you-swear-by-meagan-brandy-summary" class="post-title">
-                            <h2 class="h4 text-black">&quot;Say You Swear&quot; by Meagan Brandy - Summary</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/king-of-wrath-by-ana-huang-summary">
-                            <img src="/storage/01J37TZXC3PS99DG2CGP5Y2GN2.png"
-                                alt="King of Wrath - by Ana Huang (Summary)">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 20, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/king-of-wrath-by-ana-huang-summary" class="post-title">
-                            <h2 class="h4 text-black">King of Wrath - by Ana Huang (Summary)</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a
-                            href="https://wecima.us/blog/so-good-they-cant-ignore-you-by-cal-newport-a-comprehensive-summary">
-                            <img src="/storage/01J37S51VDK3HT64KEJS1ZEB40.png"
-                                alt="So Good They Can&#039;t Ignore You - by Cal Newport: A Comprehensive Summary">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 20, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/so-good-they-cant-ignore-you-by-cal-newport-a-comprehensive-summary"
-                            class="post-title">
-                            <h2 class="h4 text-black">So Good They Can&#039;t Ignore You - by Cal Newport: A
-                                Comprehensive Summary</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a
-                            href="https://wecima.us/blog/twisted-games-by-ana-huang-a-royal-romance-that-redefines-forbidden-love">
-                            <img src="/storage/01J2VHNMJXB5KH1G97GM3MZ2BC.png"
-                                alt="&quot;Twisted Games&quot; by Ana Huang: A Royal Romance That Redefines Forbidden Love">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 15, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/twisted-games-by-ana-huang-a-royal-romance-that-redefines-forbidden-love"
-                            class="post-title">
-                            <h2 class="h4 text-black">&quot;Twisted Games&quot; by Ana Huang: A Royal Romance That
-                                Redefines Forbidden Love</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a
-                            href="https://wecima.us/blog/the-unhoneymooners-by-christina-lauren-a-delightful-escapade-of-love">
-                            <img src="/storage/01J2V2AW4GG4XNBPJJNB8Z6SZD.png"
-                                alt="The Unhoneymooners by Christina Lauren: A Delightful Escapade of Love">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 15, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/the-unhoneymooners-by-christina-lauren-a-delightful-escapade-of-love"
-                            class="post-title">
-                            <h2 class="h4 text-black">The Unhoneymooners by Christina Lauren: A Delightful Escapade of
-                                Love</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/book-summary-twisted-games-twisted-series">
-                            <img src="/storage/01J2EGGWVD7S7J4S2MFYV29T28.png"
-                                alt=" Book Summary: Twisted Games (Twisted Series)">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 10, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/book-summary-twisted-games-twisted-series" class="post-title">
-                            <h2 class="h4 text-black"> Book Summary: Twisted Games (Twisted Series)</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/the-hard-thing-about-hard-things-in-depth-summary">
-                            <img src="/storage/01J2BBRTEKMQFDPQ1BWVJTRJKM.png"
-                                alt="The Hard Thing About Hard Things - In-Depth Summary">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 09, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/the-hard-thing-about-hard-things-in-depth-summary"
-                            class="post-title">
-                            <h2 class="h4 text-black">The Hard Thing About Hard Things - In-Depth Summary</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/a-deep-dive-into-its-in-his-kiss-by-julia-quinn">
-                            <img src="/storage/01J291E0FX958QZNK2PYGQ0H47.png"
-                                alt="A Deep Dive into &quot;It&#039;s In His Kiss&quot; by Julia Quinn">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 08, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/a-deep-dive-into-its-in-his-kiss-by-julia-quinn"
-                            class="post-title">
-                            <h2 class="h4 text-black">A Deep Dive into &quot;It&#039;s In His Kiss&quot; by Julia Quinn
-                            </h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a
-                            href="https://wecima.us/blog/twisted-lies-a-dark-and-gripping-tale-of-deception-and-intrigue">
-                            <img src="/storage/01J23WVT9DXNYFA0NCG234H9XJ.png"
-                                alt="Twisted Lies: A Dark and Gripping Tale of Deception and Intrigue">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 06, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/twisted-lies-a-dark-and-gripping-tale-of-deception-and-intrigue"
-                            class="post-title">
-                            <h2 class="h4 text-black">Twisted Lies: A Dark and Gripping Tale of Deception and Intrigue
-                            </h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a
-                            href="https://wecima.us/blog/romancing-mr-bridgerton-a-captivating-journey-of-love-and-self-discovery">
-                            <img src="/storage/01J23SZHEFG6GVVRXTZ0E827VT.png"
-                                alt="Romancing Mr. Bridgerton: A Captivating Journey of Love and Self-Discovery">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 06, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/romancing-mr-bridgerton-a-captivating-journey-of-love-and-self-discovery"
-                            class="post-title">
-                            <h2 class="h4 text-black">Romancing Mr. Bridgerton: A Captivating Journey of Love and
-                                Self-Discovery</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/a-deep-dive-into-you-cant-be-seen-until-you-learn-to-see">
-                            <img src="/storage/01J2121JWQY78Z3J1RDW8RKWSZ.png"
-                                alt="A Deep Dive into &quot;You Can&#039;t Be Seen Until You Learn to See&quot;">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 05, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/a-deep-dive-into-you-cant-be-seen-until-you-learn-to-see"
-                            class="post-title">
-                            <h2 class="h4 text-black">A Deep Dive into &quot;You Can&#039;t Be Seen Until You Learn to
-                                See&quot;</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/the-power-of-now-a-guide-to-spiritual-enlightenment">
-                            <img src="/storage/01J1YFVHK4YCDA0WV2YAFZCZC2.png"
-                                alt="The Power of Now: A Guide to Spiritual Enlightenment">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 04, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/the-power-of-now-a-guide-to-spiritual-enlightenment"
-                            class="post-title">
-                            <h2 class="h4 text-black">The Power of Now: A Guide to Spiritual Enlightenment</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="post">
-                    <div class="post-img">
-                        <a href="https://wecima.us/blog/david-goggins-the-unyielding-spirit-of-endurance">
-                            <img src="/storage/01J1WGW05EMWRES8PW5SHDBVGR.jpg"
-                                alt=" David Goggins: The Unyielding Spirit of Endurance">
-                        </a>
-                    </div>
-                    <div class="post-info">
-                        <div class="post-meta">
-                            Jul 03, 2024
-                        </div>
-                        <a href="https://wecima.us/blog/david-goggins-the-unyielding-spirit-of-endurance"
-                            class="post-title">
-                            <h2 class="h4 text-black"> David Goggins: The Unyielding Spirit of Endurance</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
+
         </div>
-        <div class="mt-3 pb-4">
-            <nav class="d-flex justify-items-center justify-content-between">
-                <div class="d-flex justify-content-between flex-fill d-sm-none">
-                    <ul class="pagination py-4">
 
-                        <li class="page-item disabled" aria-disabled="true">
-                            <span class="page-link">&laquo; Previous</span>
+        {% if posts.paginator.num_pages > 1 %}
+        <div class="pagination-container">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if posts.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" style="padding: 4.4px;" href="?page={{ posts.previous_page_number }}"
+                            aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in posts.paginator.page_range %}
+                    {% if posts.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %} <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
                         </li>
+                        {% endif %}
+                        {% endfor %}
 
-
+                        {% if posts.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="https://wecima.us/blog?page=2" rel="next">Next &raquo;</a>
+                            <a class="page-link" style="padding: 4.4px;" href="?page={{ posts.next_page_number }}"
+                                aria-label="Next">
+                                <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M5 12l14 0" />
+                                        <path d="M13 18l6 -6" />
+                                        <path d="M13 6l6 6" />
+                                    </svg>
+                                </span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </li>
-                    </ul>
-                </div>
 
-                <div class="d-none flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-between pt-3">
-                    <div>
-                        <p class="small text-muted mt-4">
-                            Showing
-                            <span class="fw-semibold">1</span>
-                            to
-                            <span class="fw-semibold">15</span>
-                            of
-                            <span class="fw-semibold">18</span>
-                            results
-                        </p>
-                    </div>
-
-                    <div>
-                        <ul class="pagination py-4">
-
-                            <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; Previous">
-                                <span class="page-link" aria-hidden="true">&lsaquo;</span>
-                            </li>
-
-
-
-
-
-                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                            <li class="page-item"><a class="page-link" href="https://wecima.us/blog?page=2">2</a></li>
-
-
-                            <li class="page-item">
-                                <a class="page-link" href="https://wecima.us/blog?page=2" rel="next"
-                                    aria-label="Next &raquo;">&rsaquo;</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                        {% endif %}
+                </ul>
             </nav>
         </div>
+        {% endif %}
+
     </div>
 </section>
 

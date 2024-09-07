@@ -1,4 +1,100 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load i18n %}
 
-
-{% block content %}{% endblock content %}
+{% block content %}
+    <section class="single-author">
+        <div class="container">
+            <div class="row author">
+                <div class="col-lg-12">
+                    <div class="author-photo m-auto">
+                       {% if author.image %}
+                            <img src="{{ author.image.url }}" alt="{{ author.full_name }}" class="img-fluid">
+                       {% else %}
+                            <img src="/static/imgs/noavatar.png" alt="{{ author.full_name }}" class="img-fluid">
+                       {% endif %}
+                        
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="author-info">
+                        <h1>{{ author.full_name }} - Books</h1>
+                        {% if author.description %}
+                         <div class="description-author more">
+                            <div class="text-center">
+                                {{ author.description|safe }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-5 d-flex justify-content-center">
+                        <nav aria-label="Next and Previous navigation" class="w-100">
+                            <ul class="pagination d-flex justify-content-between">
+                                {% if author.previous %}
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-primary" href="{% url 'authors:show' author.previous.slug %}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo; {% trans "Previous" %}</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if author.next %}
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-primary" href="{% url 'authors:show' author.next.slug %}" aria-label="Next">
+                                            <span aria-hidden="true">{% trans "Next" %} &raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 books-listing">
+                    <div class="books-list">
+                        <div class="row book-grid">
+                            {% for book in books %}
+                                <div class="col-sm-12 col-md-6 col-lg-4 book-3-row">
+                                    <div class="row book" itemscope itemtype="http://schema.org/Book">
+                                        <meta itemprop="isbn" content="9780670858699" />
+                                        <meta itemprop="name" content="{{ book.name }}" />
+                                        <meta itemprop="datePublished" content="{{ book.created_at|date:"Y" }}" />
+                                        <div class="book-cover col-lg-3 col-3">
+                                            <a href="{% url 'show_book' book.slug %}">
+                                                {% if book.image %}
+                                                <img src="{{ book.image.url }}" alt="{{ book.name }}" class="img-fluid">
+                                                {% else %}
+                                                <img src="" alt="{{ book.name }}" class="img-fluid">
+                                                {% endif %}
+                                                
+                                            </a>
+                                        </div>
+                                        <div class="book-info col-lg-9 col-9">
+                                            <div class="book-title">
+                                                <a href="{% url 'show_book' book.slug %}">{{ book.name }}</a>
+                                            </div>
+                                            <div class="book-attr">
+                                                <span class="book-publishing-year">{{ book.created_at|date:"Y" }}</span>
+                                            </div>
+                                            <div class="book-rating">
+                                                <!-- Replace with actual stars rating if available -->
+                                                {% include "components/start.html" %}
+                                                {% include "components/start.html" %}
+                                                {% include "components/start.html" %}
+                                                {% include "components/start.html" %}
+                                                {% include "components/start.html" %}
+                                            </div>
+                                            {% if book.description %}
+                                            <div class="book-short-description">{{ book.description|slice:":90"|default:"..." }}</div>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

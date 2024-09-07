@@ -240,4 +240,4 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if self.slug == None:
             self.slug = slugify(self.title)
-        super(Author, self).save(*args, **kwargs)
+        super(Post, self).save(*args, **kwargs)
