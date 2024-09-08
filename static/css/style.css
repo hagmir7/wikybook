@@ -2753,13 +2753,22 @@ h6 {
     color: #AA2529
 }
 
-.social-btns .btn.email:before {
+.social-btns .btn.telegram:before {
     background-color: #059BF3
 }
 
-.social-btns .btn.email svg {
+.social-btns .btn.telegram svg {
     color: #059BF3
 }
+
+.social-btns .btn.whatsapp:before {
+    background-color: #25d366
+}
+
+.social-btns .btn.whatsapp svg {
+    color: #25d366
+}
+
 
 .social-btns .btn:focus:before {
     top: -10%;

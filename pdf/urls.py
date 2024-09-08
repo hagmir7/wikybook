@@ -19,6 +19,10 @@ urlpatterns = [
     path("privacy-policy", privacy, name="privacy"),
     path("contact", contact, name="contact"),
     path("about-us", about, name="about"),
+
+    # Dashboard
+    path("dashboard", dashboard, name="dashboard"),
+    path('create/book', create_book, name="create_book"),
     # Scraping
     path("zpdf", zpdf, name="zpdf"),
     path("dpdf", dpdf, name="dpdf"),

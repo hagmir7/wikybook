@@ -136,7 +136,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
-# CRISPY_TEMPLATE_PACK = "uni_form"
+SUMMERNOTE_CONFIG = {
+    "width": "100%",
+    "height": "400px",
+}
 
 
 # Get today's date to create a daily log file

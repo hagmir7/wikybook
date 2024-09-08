@@ -20,6 +20,7 @@ parts/
 sdist/
 var/
 media/
+kaiadmin/
 staticfiles/
 logs/
 wheels/

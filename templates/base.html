@@ -5,7 +5,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{% if title %}{{ title }}{% else %}Weky Books: Your Guide to Book Summaries{% endif %}</title>
+  <title>{% if title %}{{ title }}{% else %}Weky Book: Your Guide to Book Summaries{% endif %}</title>
   <meta name="description" content="{% if description %}{{ description }}{% else %}Weky Book is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres, helping you quickly grasp the key ideas and stories{% endif %}">
   <meta name="keywords" content="{% if keywords %}{{ keywords }}{% else %}book summaries, Weky Book, book guide, reading summaries, book insights, literature summaries, book reviews, book analysis, quick reads, book digest, popular books, best book summaries{% endif %}">
   <meta name=viewport content="width=device-width, initial-scale=1">
@@ -13,8 +13,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="{% static "css/style.css" %}">
-   <link rel="stylesheet" href="{% static "css/carousel.min.css" %}">
-   <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "css/carousel.min.css" %}">
+  <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
   
 
 
@@ -25,20 +25,23 @@
   <link rel="mask-icon" href="{% static "logos/safari-pinned-tab.svg" %}" color="#5bbad5">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
+
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{% if title %}{{ title }}{% else %}Weky Book: Your Guide to Book Summaries{% endif %}" />
+  <meta property="og:description" content="{% if description %}{{ description }}{% else %}Weky Book is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres, helping you quickly grasp the key ideas and stories{% endif %}" />
+  <meta property="og:image" content="{% if image %}{{ image }}{% else %}{% static "imgs/wiky-thumbnail.png" %}{% endif %}" />
 </head>
 
 <body class="mb-0 pb-0">
   <header class="header d-flex justify-content-between px-3">
     <div class="mt-2">
       <div class="logo">
-        <a href="/"><img src="{% static "imgs/Wikybook-without-bg.png" %}" alt="Logo"></a>
+        <a href="/"><img src="{% static "logos/wiky-logo.png" %}" alt="Wiky book logo Logo"></a>
       </div>
     </div>
-
-   {% include "components/nav.html" %}
-
-    <div class="menu-toggler position-relative" data-toggle="collapse" data-target="#header-menu" aria-expanded="false"
-      aria-label="Toggle navigation">
+    {% include "components/nav.html" %}
+    <div class="menu-toggler position-relative" data-toggle="collapse" data-target="#header-menu" aria-expanded="false" aria-label="Toggle navigation">
       <div class="bar"></div>
     </div>
   </header>
@@ -48,16 +51,6 @@
   <button class="back-to-top p-0" id="back-to-top" role="button">
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-arrow-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8l-4 4" /><path d="M12 8v8" /><path d="M16 12l-4 -4" /></svg>
   </button>
-
-  <script src="https://d-pdf.com/themes/default/resources/js/jquery.min.js"></script>
-  <script src="https://d-pdf.com/themes/default/resources/js/popper.min.js"></script>
-  <script src="https://d-pdf.com/themes/default/resources/js/bootstrap.min.js"></script>
-
-  <script src="https://d-pdf.com/themes/default/resources/js/owl.carousel.min.js"></script>
-
-  <script src="https://d-pdf.com/themes/default/resources/js/plugins.js"></script>
-  <script src="https://d-pdf.com/themes/default/resources/js/custom.js"></script>
-
 </body>
 
 </html>

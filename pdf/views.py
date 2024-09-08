@@ -1,10 +1,18 @@
 # views.py
-from django.http import JsonResponse
 import fitz  # PyMuPDF
 from .forms import BookForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import (
+    Http404,
+    HttpResponseRedirect,
+    JsonResponse,
+    HttpResponse,
+    HttpResponseBadRequest,
+)
 
 
 def index(request):
@@ -54,7 +62,7 @@ def show_book(request, slug):
         "title": book.name,
         "description": book.description,
         "keywords": book.tags,
-        "image": book.image,
+        "image": book.image.url if book.image else False,
     }
     return render(request, "books/show.html", context)
 
@@ -145,3 +153,37 @@ def contact(request):
 
 def about(request):
     return render(request, "about.html")
+
+
+# Start Dashobard
+
+
+def dashboard(request):
+    users = User.objects.all().count()
+    posts = Post.objects.all().count()
+    books = Book.objects.all().count()
+    views = Location.objects.all().count()
+    context = {
+        "users" : users,
+        "posts" : posts,
+        "views" : views,
+        'books' : books
+    }
+    return render(request, 'dash/index.html', context)
+
+
+def create_book(request):
+    form = BookForm()
+    if request.method == "POST":
+        form = BookForm(request.POST, files=request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            if obj.save():
+                messages.success(request, "Book created successfully.")
+
+    context = {
+        "form": form,
+        "title": "Create Book",
+    }
+    return render(request, "dash/book/create.html", context)
