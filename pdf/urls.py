@@ -20,7 +20,7 @@ urlpatterns = [
     # Dashboard
     path("dashboard", dashboard, name="dashboard"),
     path("book/create", create_book, name="create_book"),
-    path("book/update/<int:id>", create_book, name="update_book"),
+    path("book/update/<int:book_id>", create_book, name="update_book"),
     path("book/list", book_list, name="book_list"),
     path("book/<str:slug>", show_book, name="show_book"),
     # Scraping
