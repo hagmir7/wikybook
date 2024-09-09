@@ -6,6 +6,7 @@ from .models import *
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.urls import reverse
 from django.http import (
     Http404,
     HttpResponseRedirect,
@@ -128,6 +129,16 @@ def upload(request):
     return render(request, "upload.html")
 
 
+def book_list(request):
+    books_list = Book.objects.all().order_by("-created_at")
+    paginator = Paginator(books_list, 60)
+    page_number = request.GET.get("page")
+    books = paginator.get_page(page_number)
+    context = {"books": books, "title": "Weky Books: Find Your Favorite Books"}
+    return render(request, "dash/book/list.html", context)
+
+
+
 def book_create(request):
 
     form = BookForm()
@@ -185,5 +196,32 @@ def create_book(request):
     context = {
         "form": form,
         "title": "Create Book",
+    }
+    return render(request, "dash/book/create.html", context)
+
+
+def create_book(request, book_id=None):
+    if book_id:
+        book = get_object_or_404(Book, id=book_id, user=request.user)
+        form = BookForm(instance=book)
+        title = "Update Book"
+    else:
+        book = None
+        form = BookForm()
+        title = "Create Book"
+
+    if request.method == "POST":
+        form = BookForm(request.POST, request.FILES, instance=book)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            action = "updated" if book_id else "created"
+            messages.success(request, f"Book {action} successfully.")
+            return redirect(reverse('create_book', kwargs={'book_id': obj.id}))
+
+    context = {
+        "form": form,
+        "title": title,
     }
     return render(request, "dash/book/create.html", context)

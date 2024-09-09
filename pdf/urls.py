@@ -8,9 +8,7 @@ from pdf.sites.archive import archive
 
 urlpatterns = [
     path("upload", upload, name="upload"),
-    path("book/create", book_create, name="book_create"),
     path("", index, name="index"),
-    path("book/<str:slug>", show_book, name="show_book"),
     path("blogs", blogs, name="blogs"),
     path("blog/<str:slug>", show_blog, name="show_blog"),
     path("books", books, name="books"),
@@ -19,10 +17,12 @@ urlpatterns = [
     path("privacy-policy", privacy, name="privacy"),
     path("contact", contact, name="contact"),
     path("about-us", about, name="about"),
-
     # Dashboard
     path("dashboard", dashboard, name="dashboard"),
-    path('create/book', create_book, name="create_book"),
+    path("book/create", create_book, name="create_book"),
+    path("book/update/<int:id>", create_book, name="update_book"),
+    path("book/list", book_list, name="book_list"),
+    path("book/<str:slug>", show_book, name="show_book"),
     # Scraping
     path("zpdf", zpdf, name="zpdf"),
     path("dpdf", dpdf, name="dpdf"),
