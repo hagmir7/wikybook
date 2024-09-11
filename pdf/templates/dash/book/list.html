@@ -7,12 +7,25 @@
             <div class="card-header">
                 <div class="card-title">Books</div>
             </div>
-
             <div class="card-body">
-                <div class="card-sub">
-                    <a href="/book/create" class="btn btn-label-info btn-round me-2">
-                        <i class="icon-plus mx-2"></i> Create
-                    </a>
+                <div class="card-sub d-flex align-items-center border">
+                    <div>
+                        <a href="/book/create" class="btn btn-label-info btn-round me-2 d-flex align-items-center">
+                            <i class="icon-plus mx-2"></i> 
+                            <span>Create</span>
+                        </a>
+                    </div>
+                    <div class="input-group rounded-pill overflow-hidden border border-2">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="text-body-secondary" width="26" height="26" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M13.856 13.85a3.429 3.429 0 1 0-4.855-4.842a3.429 3.429 0 0 0 4.855 4.842m0 0L16 16" />
+                                </g>
+                            </svg>
+                        </span>
+                        <input type="search" class="form-control border-0" placeholder="Search" aria-label="Search.." aria-describedby="basic-addon1">
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -25,8 +38,6 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
 
                             {% for book in books %}
@@ -119,8 +130,7 @@
                                             <span class="sr-only">Next</span>
                                         </a>
                                     </li>
-
-                                    {% endif %}
+                                {% endif %}
                             </ul>
                         </nav>
                     </div>
