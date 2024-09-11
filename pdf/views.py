@@ -1,6 +1,6 @@
 # views.py
 import fitz  # PyMuPDF
-from .forms import BookForm
+from .forms import BookForm, PostForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
@@ -138,7 +138,6 @@ def book_list(request):
     return render(request, "dash/book/list.html", context)
 
 
-
 def book_create(request):
 
     form = BookForm()
@@ -225,3 +224,39 @@ def create_book(request, book_id=None):
         "title": title,
     }
     return render(request, "dash/book/create.html", context)
+
+
+def create_post(request, id=None):
+    if id:
+        post = get_object_or_404(Post, id=id, user=request.user)
+        form = PostForm(instance=post)
+        title = "Update post"
+    else:
+        post = None
+        form = PostForm()
+        title = "Create post"
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            action = "updated" if id else "created"
+            messages.success(request, f"post {action} successfully.")
+            return redirect(reverse("create_post", kwargs={"id": obj.id}))
+
+    context = {
+        "form": form,
+        "title": title,
+    }
+    return render(request, "dash/post/create.html", context)
+
+
+def post_list(request):
+    posts_list = Post.objects.all().order_by("-created_at")
+    paginator = Paginator(posts_list, 60)
+    page_number = request.GET.get("page")
+    posts = paginator.get_page(page_number)
+    context = {"posts": posts, "title": "Blog list - WikyBook"}
+    return render(request, "dash/post/list.html", context)

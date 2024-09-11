@@ -21,8 +21,11 @@ urlpatterns = [
     path("dashboard", dashboard, name="dashboard"),
     path("book/create", create_book, name="create_book"),
     path("book/update/<int:book_id>", create_book, name="update_book"),
+    path("post/create/", create_post, name="create_post"),
+    path("post/create/<int:id>/", create_post, name="update_post"),
     path("book/list", book_list, name="book_list"),
     path("book/<str:slug>", show_book, name="show_book"),
+    path("post/list", post_list, name="post_list"),
     # Scraping
     path("zpdf", zpdf, name="zpdf"),
     path("dpdf", dpdf, name="dpdf"),

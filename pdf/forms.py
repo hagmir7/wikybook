@@ -1,8 +1,21 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from .models import Book
+from .models import Book, Post
 from django.core.exceptions import ValidationError
 import os
+
+
+class PostForm(forms.ModelForm):
+    body = forms.CharField(widget=SummernoteWidget())
+
+    class Meta:
+        model = Post
+        fields = ["title", "image", "tags", "category", "description", "body"]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({"class": "form-control"})
 
 
 class BookForm(forms.ModelForm):
