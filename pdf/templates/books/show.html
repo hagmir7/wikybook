@@ -105,7 +105,7 @@
                         <tr>
                             <td>{% trans 'Author' %}:</td>
                             <td>
-                                <a href="" itemprop="author">{{ book.author.full_name }}</a>
+                                <a href="{% url "show_author" book.author.slug %}" itemprop="author">{{ book.author.full_name }}</a>
                             </td>
                         </tr>
 

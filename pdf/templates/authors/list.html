@@ -9,23 +9,23 @@
                 <div class="authors-list">
                     <div class="top-filter row">
                         <div class="col-lg-8 text">
-                            Found <span>20 authors</span> in total
+                            <h1 class="h2">Popular Authors</h1>
                         </div>
                     </div>
                     <div class="row">
                         {% for author in authors %}
                         <div class="col-sm-4 col-md-3 col-lg-2 col-6">
-                            <div class="author">
+                            <div class="author overflow-hidden rounded-4">
                                 <div class="author-photo">
                                     <a href="{% url "show_author" author.slug %}" class="text-center">
-                                        <img class="cover" src="/static/imgs/noavatar.png" alt="{{ author.full_name }}">
+                                        <img class="cover w-100" src="/static/imgs/noavatar.png" alt="{{ author.full_name }}">
                                     </a>
                                 </div>
-                                <div class="author-info">
+                                <div class="author-info py-2">
                                     <h4 class="author-name">
                                         <a href="{% url "show_author" author.slug %}">{{ author.full_name }}</a>
                                     </h4>
-                                    <span class="author-books">{{ author.book_set.count }} books</span>
+                                    <span class="author-books text-bold">{{ author.book_set.count }} books</span>
                                 </div>
                             </div>
                         </div>

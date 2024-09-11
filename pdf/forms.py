@@ -17,6 +17,12 @@ class PostForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({"class": "form-control"})
 
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if Post.objects.filter(title=title).exists():
+            raise ValidationError("Post with this title is already exists.")
+        return title
+
 
 class BookForm(forms.ModelForm):
     body = forms.CharField(widget=SummernoteWidget())

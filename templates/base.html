@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{% if title %}{{ title }}{% else %}Weky Book: Your Guide to Book Summaries{% endif %}</title>
-  <meta name="description" content="{% if description %}{{ description }}{% else %}Weky Book is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres, helping you quickly grasp the key ideas and stories{% endif %}">
+  <meta name="description" content="{% if description %}{{ description|slice:"0:160" }}{% else %}Weky Book is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres, helping you quickly grasp{% endif %}">
   <meta name="keywords" content="{% if keywords %}{{ keywords }}{% else %}book summaries, Weky Book, book guide, reading summaries, book insights, literature summaries, book reviews, book analysis, quick reads, book digest, popular books, best book summaries{% endif %}">
   <meta name=viewport content="width=device-width, initial-scale=1">
 
@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="{% static "css/carousel.min.css" %}">
   <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
   
-
-
   <link rel="apple-touch-icon" sizes="180x180" href="{% static "logos/apple-touch-icon.png" %}">
   <link rel="icon" type="image/png" sizes="32x32" href="{% static "logos/favicon-32x32.png" %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static "logos/favicon-16x16.png" %}">
@@ -29,8 +27,10 @@
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="{% if title %}{{ title }}{% else %}Weky Book: Your Guide to Book Summaries{% endif %}" />
-  <meta property="og:description" content="{% if description %}{{ description }}{% else %}Weky Book is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres, helping you quickly grasp the key ideas and stories{% endif %}" />
+  <meta property="og:description" content="{% if description %}{{ description|slice:"0:160" }}{% else %}Weky Book is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres, helping you quickly grasp{% endif %}" />
   <meta property="og:image" content="{% if image %}{{ image }}{% else %}{% static "imgs/wiky-thumbnail.png" %}{% endif %}" />
+  <link rel='canonical' href='{{  request.build_absolute_uri }}' />
+
 </head>
 
 <body class="mb-0 pb-0">
