@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-!i99s-j@-um)&dbvz%m(72!=nvnf9@dxwy++@23y5t%s7c&_sb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 CPANEL = False
 
@@ -141,6 +141,28 @@ SUMMERNOTE_CONFIG = {
     "height": "400px",
 }
 
+WHITENOISE_MANIFEST_STRICT = False
+
+
+if CPANEL:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+
+    DATABASES = {
+        "default": {
+            "ENGINE": os.environ.get("DB_ENGINE"),
+            "NAME": os.environ.get("DB_NAME"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASSWORD"),
+            "HOST": os.environ.get("DB_HOST"),  # Typically 'localhost' or '127.0.0.1'
+            "PORT": os.environ.get("DB_PORT"),  # Typically '3306'
+            "OPTIONS": {
+                "sql_mode": "STRICT_TRANS_TABLES",
+                "charset": "utf8mb4",
+                "use_unicode": True,
+            },
+        }
+    }
 
 # Get today's date to create a daily log file
 today = datetime.datetime.now().strftime("%Y-%m-%d")
