@@ -15,7 +15,6 @@ from django.http import (
     HttpResponseBadRequest,
 )
 
-import os
 
 def index(request):
     books = Book.objects.all().order_by("-created_at")[0:50]
