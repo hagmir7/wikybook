@@ -214,7 +214,7 @@
                     </a>
                     </div>
                 </div>
-                    {{ book.author.description|truncatechars_html:500 }} <a href="{% url "show_author" book.author.slug %}"></a>
+                    {{ book.author.description|truncatechars_html:500|safe }} <a href="{% url "show_author" book.author.slug %}"></a>
                 </div>
             </div>
         </div>
