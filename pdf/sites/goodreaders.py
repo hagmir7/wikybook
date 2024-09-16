@@ -232,7 +232,7 @@ def get_book(url):
 
 
 def goodreaders(request):
-    for page in range(23, 40):
+    for page in range(20, 23):
         url = f"https://www.goodreads.com/list/show/3810.Best_Cozy_Mystery_Series?page={page}/"
         response = requests.get(url, verify=True, headers=headers)
         if response.status_code == 200:
