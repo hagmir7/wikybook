@@ -101,7 +101,7 @@ class Category(models.Model):
 class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     full_name = models.CharField(max_length=100)
-    image = models.ImageField(_("Image"), upload_to=filename, null=True, blank=True)
+    image = models.ImageField(_("Image"), upload_to=filename, null=True, blank=True, default="noavatar.png")
     description = models.TextField(_("Description"), null=True, blank=True)
     slug = models.SlugField(blank=True, null=True, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -215,7 +215,7 @@ class Post(models.Model):
     description = models.TextField()
     tags = models.CharField(max_length=150, null=True, blank=True)
     body = models.TextField()
-    slug = models.SlugField(max_length=300, null=True, blank=True, unique=True)
+    slug = models.SlugField(null=True, blank=True, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

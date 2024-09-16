@@ -117,9 +117,18 @@
                             </td>
                         </tr>
                         {% endif %}
-                        {% if book.isbn %}
+                        {% if book.isbn13 %}
                         <tr>
                             <td>{% trans 'ISBN13' %}:</td>
+                            <td>
+                                <span itemprop="isbn10">{{ book.isbn|default:'__' }}</span>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                         {% if book.isbn %}
+                        <tr>
+                            <td>{% trans 'ISBN' %}:</td>
                             <td>
                                 <span itemprop="isbn">{{ book.isbn|default:'__' }}</span>
                             </td>
@@ -138,6 +147,16 @@
                                 <div class="badge badge-danger p-2">{{ book.type|default:"__" }}</div>
                             </td>
                         </tr>
+                        {% endif %}
+
+                        {% if book.publication_date %}
+                          <tr>
+                            <td>{% trans 'Publication data' %}:</td>
+                            <td>
+                                {{ book.publication_date|default:"__" }}
+                            </td>
+                        </tr>
+
                         {% endif %}
                     </tbody>
                 </table>
@@ -168,8 +187,34 @@
                     </nav>
                 </div>
 
-                <div class="book-description" itemprop="description">
+                <div class="book-description mb-6" itemprop="description">
                     {{ book.body|safe }}
+                </div>
+                
+                <div class="container mt-4 p-0">
+                <h2 class="mb-4">{% trans "About the author" %}</h2>
+                
+                <div class="row align-items-center mb-3">
+                    <div class="col-auto">
+                        {% if book.author.image %}
+                            <img src="{{ book.author.image.url }}" alt="{{ book.author.full_name }}" class="rounded-circle" width="70" height="70">
+                        {% else %}
+                            <img src="/static/imgs/noavatar.png" alt="{{ book.author.full_name }}" class="rounded-circle" width="70" height="70">
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                    <h3 class="mb-0">{{ book.author.full_name }} <small class="text-muted">✍️</small></h3>
+                    <p class="text-muted mb-0">{{ book.author.book_set.count }} books · 14.7k followers</p>
+                    </div>
+                    <div class="col-auto">
+                    <a href="{% url "show_author" book.author.slug %}" class="btn btn-dark">
+                        More
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m8.818 15.182l6.364-6.364m-4.95 0h4.95v4.95"/><path d="M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z"/></g></svg>
+                        
+                    </a>
+                    </div>
+                </div>
+                    {{ book.author.description|truncatechars_html:500 }} <a href="{% url "show_author" book.author.slug %}"></a>
                 </div>
             </div>
         </div>

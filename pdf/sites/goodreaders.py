@@ -232,7 +232,7 @@ def get_book(url):
 
 
 def goodreaders(request):
-    for page in range(3, 24):
+    for page in range(8, 24):
         print("page => ", page)
         url = f"https://www.goodreads.com/list/show/143500.Best_Books_of_the_Decade_2020_s?page={page}/"
         response = requests.get(url, verify=True, headers=headers)
