@@ -5,6 +5,8 @@ from pdf.sites.dpdf import dpdf
 from pdf.sites.pdfjatt import pdfjatt
 from pdf.sites.archive import archive
 
+from pdf.sites.goodreaders import goodreaders
+
 
 urlpatterns = [
     path("upload", upload, name="upload"),
@@ -31,4 +33,5 @@ urlpatterns = [
     path("dpdf", dpdf, name="dpdf"),
     path("pdfjatt", pdfjatt, name="pdfjatt"),
     path("archive", archive, name="archive"),
+    path("goodreaders", goodreaders, name="goodreaders"),
 ]

@@ -133,6 +133,7 @@ class Book(models.Model):
     size = models.CharField(null=True, blank=True, max_length=100)
     type = models.CharField(max_length=30, null=True, blank=True)
     isbn = models.CharField(max_length=100, null=True, blank=True)
+    isbn13 = models.CharField(max_length=100, null=True, blank=True)
     image = models.ImageField(upload_to=filename, null=True, blank=True)
     description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
     body = models.TextField(verbose_name="Body", null=True, blank=True)
@@ -142,8 +143,10 @@ class Book(models.Model):
     status = models.BooleanField(default=True, null=True, blank=True)
     slug = models.SlugField(blank=True, null=True, editable=False, unique=True)
     verified = models.BooleanField(default=False)
+    publication_date = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     removed = models.DateField(null=True, blank=True)
 
     def get_absolute_url(self, *args, **kwargs):

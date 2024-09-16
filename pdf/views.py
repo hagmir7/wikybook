@@ -16,6 +16,14 @@ from django.http import (
 )
 
 
+from django.conf import settings
+import json
+
+def getSite():
+    with open(settings.BASE_DIR / "site.json", 'r') as file:
+        return json.load(file)
+
+
 def index(request):
     books = Book.objects.all().order_by("-created_at")[0:50]
     authors = Author.objects.all().order_by("-created_at")[0:50]
@@ -28,7 +36,10 @@ def blogs(request):
     paginator = Paginator(posts_list, 50)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
-    context = {"posts": posts, "title": "Weky Books: Your Guide to Book Summaries"}
+
+
+    title = getSite()['title']
+    context = {"posts": posts, "title": title}
     return render(request, "blogs/list.html", context)
 
 
@@ -50,7 +61,7 @@ def books(request):
     paginator = Paginator(books_list, 60)
     page_number = request.GET.get("page")
     books = paginator.get_page(page_number)
-    context = {"books": books, "title": "Weky Books: Find Your Favorite Books"}
+    context = {"books": books, "title": getSite()["books_title"]}
     return render(request, "books/list.html", context)
 
 
@@ -73,7 +84,7 @@ def authors(request):
     paginator = Paginator(authors_list, 50)
     page_number = request.GET.get("page")
     authors = paginator.get_page(page_number)
-    context = {"authors": authors, "title": "Book authors - Weky books "}
+    context = {"authors": authors, "title": f"Book authors - {getSite()['name']} "}
     return render(request, "authors/list.html", context)
 
 
@@ -134,7 +145,7 @@ def book_list(request):
     paginator = Paginator(books_list, 60)
     page_number = request.GET.get("page")
     books = paginator.get_page(page_number)
-    context = {"books": books, "title": "Weky Books: Find Your Favorite Books"}
+    context = {"books": books, "title": getSite()["title"]}
     return render(request, "dash/book/list.html", context)
 
 
@@ -258,5 +269,5 @@ def post_list(request):
     paginator = Paginator(posts_list, 60)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
-    context = {"posts": posts, "title": "Blog list - WikyBook"}
+    context = {"posts": posts, "title": f"Blog list - {getSite()['name']}"}
     return render(request, "dash/post/list.html", context)
