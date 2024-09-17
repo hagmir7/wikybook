@@ -15,19 +15,24 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
 }
 
+
 def date_format(string_date):
     try:
-        timestamp = int(string_date) / 1000 
-        readable_date = datetime.utcfromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = int(string_date) / 1000
+        readable_date = datetime.utcfromtimestamp(timestamp).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
         return readable_date
     except:
         return datetime.now()
+
 
 def remove_extra_spaces_and_lines(text):
     lines = text.split("\n")
     lines = [line.strip() for line in lines if line.strip()]
     cleaned_text = " ".join(lines)
     return cleaned_text
+
 
 def download_image(url, id):
     try:
@@ -41,11 +46,14 @@ def download_image(url, id):
                     book.image.save("image.png", File(file))
             print(f"Image saved successfully for book ID {id}.")
         else:
-            print(f"Failed to download image for book ID {id}. Status code: {response.status_code}")
+            print(
+                f"Failed to download image for book ID {id}. Status code: {response.status_code}"
+            )
     except Book.DoesNotExist:
         print(f"Book not found with ID {id}.")
     except Exception as e:
         print(f"An error occurred while downloading image for book ID {id}: {e}")
+
 
 def download_file(url, id):
     try:
@@ -59,11 +67,14 @@ def download_file(url, id):
                     book.file.save("file.pdf", File(file))
             print(f"PDF file saved successfully for book ID {id}.")
         else:
-            print(f"Failed to download PDF for book ID {id}. Status code: {response.status_code}")
+            print(
+                f"Failed to download PDF for book ID {id}. Status code: {response.status_code}"
+            )
     except Book.DoesNotExist:
         print(f"Book not found with ID {id}.")
     except Exception as e:
         print(f"An error occurred while downloading PDF for book ID {id}: {e}")
+
 
 def page_download(data):
     try:
@@ -98,14 +109,16 @@ def page_download(data):
                 "user": User.objects.get(id=1),
                 "author": author,
                 "language": language,
-                "description": remove_extra_spaces_and_lines(str(body_description.get_text()))[:300],
+                "description": remove_extra_spaces_and_lines(
+                    str(body_description.get_text())
+                )[:300],
                 "isbn13": data.get("isbn13"),
                 "body": str(body_description),
                 "tags": ", ".join(data.get("genres", [])),
                 "category": category,
                 "isbn": data.get("isbn"),
                 "publication_date": date_format(data.get("publication_date")),
-                "pages": data.get("pages")
+                "pages": data.get("pages"),
             },
         )
 
@@ -120,8 +133,10 @@ def page_download(data):
         print(f"An error occurred while processing book data: {e}")
         traceback.print_exc()
 
+
 def find_key_by_prefix(data, prefix):
     return next((k for k in data.keys() if k.startswith(prefix)), None)
+
 
 def extract_book_info(json_data):
     try:
@@ -138,7 +153,11 @@ def extract_book_info(json_data):
         work_data = apollo_state[work_key]
 
         author_ref = book_data["primaryContributorEdge"]["node"]
-        author_id = author_ref["__ref"] if isinstance(author_ref, dict) and "__ref" in author_ref else None
+        author_id = (
+            author_ref["__ref"]
+            if isinstance(author_ref, dict) and "__ref" in author_ref
+            else None
+        )
         author_data = apollo_state.get(author_id, {}) if author_id else {}
 
         book_info = {
@@ -152,7 +171,9 @@ def extract_book_info(json_data):
             "isbn": book_data.get("details", {}).get("isbn"),
             "isbn13": book_data.get("details", {}).get("isbn13"),
             "language": book_data.get("details", {}).get("language", {}).get("name"),
-            "genres": [genre["genre"]["name"] for genre in book_data.get("bookGenres", [])],
+            "genres": [
+                genre["genre"]["name"] for genre in book_data.get("bookGenres", [])
+            ],
             "average_rating": work_data.get("stats", {}).get("averageRating"),
             "ratings_count": work_data.get("stats", {}).get("ratingsCount"),
         }
@@ -163,22 +184,23 @@ def extract_book_info(json_data):
         traceback.print_exc()
         return None
 
+
 def get_book(url):
     try:
         response = requests.get(url, verify=True, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, "html.parser")
         json_script = soup.find("script", {"id": "__NEXT_DATA__"})
-        
+
         if json_script is None:
             raise ValueError("Could not find __NEXT_DATA__ script tag")
-        
+
         json_string = json_script.text
         book_info = extract_book_info(json_string)
-        
+
         if book_info is None:
             raise ValueError("Failed to extract book info")
-        
+
         page_download(book_info)
     except requests.RequestException as e:
         print(f"HTTP Request failed for URL {url}: {e}")
@@ -189,6 +211,7 @@ def get_book(url):
     except Exception as e:
         print(f"An unexpected error occurred for URL {url}: {e}")
         traceback.print_exc()
+
 
 def goodreads(request):
     total_books_processed = 0
@@ -218,12 +241,18 @@ def goodreads(request):
         except Exception as e:
             print(f"An error occurred while processing page {page}: {e}")
             traceback.print_exc()
-    
+
     print(f"Scraping completed. Total books processed: {total_books_processed}")
-    return JsonResponse({"message": f"Scraping completed successfully. Processed {total_books_processed} books."})
+    return JsonResponse(
+        {
+            "message": f"Scraping completed successfully. Processed {total_books_processed} books."
+        }
+    )
+
 
 # If you want to run this script directly (not as a Django view)
-if __name__ == "__main__":
-    class DummyRequest:
-        pass
-    goodreads(DummyRequest())
+# if __name__ == "__main__":
+#     class DummyRequest:
+#         pass
+
+#     goodreads(DummyRequest())
