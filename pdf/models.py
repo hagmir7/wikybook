@@ -109,7 +109,7 @@ class Author(models.Model):
 
     def save(self, *args, **kwargs):
         if self.slug == None:
-            self.slug = slugify(self.full_name)
+            self.slug = slugify(self.full_name)[0:255]
         super(Author, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -170,7 +170,7 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name)[0:255]
         super().save(*args, **kwargs)
 
 
@@ -242,5 +242,5 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         if self.slug == None:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title)[0:255]
         super(Post, self).save(*args, **kwargs)
