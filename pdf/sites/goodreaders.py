@@ -84,10 +84,19 @@ def page_download(data):
         else:
             print("There is no PDF 📕❌")
 
+        # Get or create the English language
+        try:
+            english_language = Language.objects.get(code="en")
+        except Language.DoesNotExist:
+            english_language, _ = Language.objects.get_or_create(
+                code="en",
+                defaults={"name": "English"}
+            )
+
         category_name = data.get("genres")[0] if data.get("genres") else "Uncategorized"
         category, _ = Category.objects.get_or_create(
             name=category_name,
-            defaults={"language": Language.objects.get(code="en")},
+            defaults={"language": english_language},
         )
 
         author_name = data.get("author", "Unknown Author")
@@ -96,8 +105,10 @@ def page_download(data):
         )
 
         language_name = data.get("language", "Unknown Language")
+        language_code = str(language_name[:2]).lower() if language_name else "un"
         language, _ = Language.objects.get_or_create(
-            code=str(language_name[0:2]).lower(), name=language_name
+            code=language_code,
+            defaults={"name": language_name}
         )
 
         book_name = data.get("name", "Untitled Book")
@@ -109,16 +120,14 @@ def page_download(data):
                 "user": User.objects.get(id=1),
                 "author": author,
                 "language": language,
-                "description": remove_extra_spaces_and_lines(
-                    str(body_description.get_text())
-                )[:300],
+                "description": remove_extra_spaces_and_lines(str(body_description.get_text()))[:300],
                 "isbn13": data.get("isbn13"),
                 "body": str(body_description),
                 "tags": ", ".join(data.get("genres", [])),
                 "category": category,
                 "isbn": data.get("isbn"),
                 "publication_date": date_format(data.get("publication_date")),
-                "pages": data.get("pages"),
+                "pages": data.get("pages")
             },
         )
 
@@ -129,6 +138,8 @@ def page_download(data):
         else:
             print(f"Book '{book_name}' already exists.")
 
+    except User.DoesNotExist:
+        print("Error: Default user (id=1) does not exist. Please create a default user or modify the user assignment logic.")
     except Exception as e:
         print(f"An error occurred while processing book data: {e}")
         traceback.print_exc()
@@ -215,7 +226,7 @@ def get_book(url):
 
 def goodreads(request):
     total_books_processed = 0
-    for page in range(1, 100):
+    for page in range(20, 100):
         print(f"Processing page {page}")
         url = f"https://www.goodreads.com/list/show/19.Best_for_Book_Clubs?page={page}/"
         try:
@@ -251,8 +262,8 @@ def goodreads(request):
 
 
 # If you want to run this script directly (not as a Django view)
-# if __name__ == "__main__":
-#     class DummyRequest:
-#         pass
+if __name__ == "__main__":
+    class DummyRequest:
+        pass
 
-#     goodreads(DummyRequest())
+    goodreads(DummyRequest())

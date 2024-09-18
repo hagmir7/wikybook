@@ -23,6 +23,11 @@ CPANEL = str(os.environ.get("CPANEL")) == "1"
 AI_KEY = os.environ.get("AI_KEY")
 
 
+# CELERY_BROKER_URL = str(os.environ.get("CELERY_BROKER_URL"))  # "redis://localhost:6379"
+# CELERY_RESULT_BACKEND = str(os.environ.get("CELERY_RESULT_BACKEND")) # "redis://localhost:6379"
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +43,14 @@ INSTALLED_APPS = [
     "django_summernote",
     "pdf",
 ]
+
+
+CELERY_BEAT_SCHEDULE = {
+    "check-overdue-tasks": {
+        "task": "pdf.tasks.check_website_status",
+        "schedule": 60.0,  # Run every 60 seconds
+    },
+}
 
 
 MIDDLEWARE = [

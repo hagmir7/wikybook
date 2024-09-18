@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
+from .tasks import check_website_status
 from django.http import (
     Http404,
     HttpResponseRedirect,
