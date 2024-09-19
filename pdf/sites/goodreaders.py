@@ -226,9 +226,15 @@ def get_book(url):
 
 def goodreads(request):
     total_books_processed = 0
-    for page in range(20, 100):
+    if request.GET.get("start") and request.GET.get("url"):
+        start = int(request.GET.get("start"))
+        url = request.GET.get("url")
+
+    else:
+        return JsonResponse({"message": "Url and start is required"})
+    for page in range(start, 200):
         print(f"Processing page {page}")
-        url = f"https://www.goodreads.com/list/show/19.Best_for_Book_Clubs?page={page}/"
+        url = f"{url}?page={page}/"
         try:
             response = requests.get(url, verify=True, headers=headers)
             response.raise_for_status()
