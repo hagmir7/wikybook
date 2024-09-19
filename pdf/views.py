@@ -272,3 +272,8 @@ def post_list(request):
     posts = paginator.get_page(page_number)
     context = {"posts": posts, "title": f"Blog list - {getSite()['name']}"}
     return render(request, "dash/post/list.html", context)
+
+
+
+def scrap(request):
+    return render(request, "scrap.html")

@@ -34,4 +34,6 @@ urlpatterns = [
     path("pdfjatt", pdfjatt, name="pdfjatt"),
     path("archive", archive, name="archive"),
     path("goodreads", goodreads, name="goodreads"),
+    # scrap
+    path("scrap", scrap, name="scrap"),
 ]
