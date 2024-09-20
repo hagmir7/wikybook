@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_summernote",
-    "pdf",
+     "pdf",
 ]
 
 
@@ -156,7 +156,6 @@ SUMMERNOTE_CONFIG = {
     "height": "400px",
 }
 
-WHITENOISE_MANIFEST_STRICT = False
 
 
 if CPANEL:

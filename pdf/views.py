@@ -274,6 +274,9 @@ def post_list(request):
     return render(request, "dash/post/list.html", context)
 
 
-
 def scrap(request):
     return render(request, "scrap.html")
+
+
+def home(request):
+    return render(request, "home.html")
