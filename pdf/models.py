@@ -93,6 +93,12 @@ class Category(models.Model):
         if self.slug == None:
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
+    
+    def next(self):
+        return Category.objects.filter(id__gt=self.id).order_by('id').first()
+
+    def previous(self):
+        return Category.objects.filter(id__lt=self.id).order_by('-id').first()
 
     def __str__(self):
         return self.name
@@ -111,6 +117,13 @@ class Author(models.Model):
         if self.slug == None:
             self.slug = slugify(self.full_name)[0:255]
         super(Author, self).save(*args, **kwargs)
+
+    
+    def next(self):
+        return self.get_next_by_created_at()
+
+    def pre(self):
+        return self.get_previous_by_created_at()
 
     def __str__(self):
         return self.full_name

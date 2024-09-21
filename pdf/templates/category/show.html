@@ -1,44 +1,26 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
 {% block content %}
     <section class="single-author">
         <div class="container">
             <div class="row author">
-                <div class="col-lg-12">
-                    <div class="author-photo m-auto">
-                       {% if author.image %}
-                            <img src="{{ author.image.url }}" alt="{{ author.full_name }}" class="img-fluid">
-                       {% else %}
-                            <img src="/static/imgs/noavatar.png" alt="{{ author.full_name }}" class="img-fluid">
-                       {% endif %}
-                        
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="author-info">
-                        <h1>{{ author.full_name }} - Books</h1>
-                        {% if author.description %}
-                         <div class="description-author more">
-                            <div class="text-center">
-                                {{ author.description|safe }}
-                            </div>
-                        </div>
-                        {% endif %}
+                        <h1>{{ category.name }} - Books</h1>
                     </div>
                     <div class="mt-5 d-flex justify-content-center">
                         <nav aria-label="Next and Previous navigation" class="w-100">
                             <ul class="pagination d-flex justify-content-between">
-                                {% if author.pre %}
+                                {% if category.previous %}
                                     <li class="page-item">
-                                        <a class="page-link btn btn-primary" href="{% url 'show_author' author.pre.slug %}" aria-label="Previous">
+                                        <a class="page-link btn btn-primary" href="{% url 'category' category.previous.slug %}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo; {% trans "Previous" %}</span>
                                         </a>
                                     </li>
                                 {% endif %}
-                                {% if author.next %}
+                                {% if category.next %}
                                     <li class="page-item">
-                                        <a class="page-link btn btn-primary" href="{% url 'show_author' author.next.slug %}" aria-label="Next">
+                                        <a class="page-link btn btn-primary" href="{% url 'category' category.next.slug %}" aria-label="Next">
                                             <span aria-hidden="true">{% trans "Next" %} &raquo;</span>
                                         </a>
                                     </li>
@@ -96,5 +78,62 @@
                 </div>
             </div>
         </div>
+
+    {% if books.paginator.num_pages > 1 %}
+        <div class="pagination-container">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if books.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" style="padding: 4.4px;" href="?page={{ books.previous_page_number }}"
+                            aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in books.paginator.page_range %}
+                    {% if books.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > books.number|add:'-3' and num < books.number|add:'3' %} <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if books.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" style="padding: 4.4px;" href="?page={{ books.next_page_number }}"
+                                aria-label="Next">
+                                <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M5 12l14 0" />
+                                        <path d="M13 18l6 -6" />
+                                        <path d="M13 6l6 6" />
+                                    </svg>
+                                </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+
+                        {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
     </section>
 {% endblock %}

@@ -19,7 +19,8 @@ urlpatterns = [
     path("privacy-policy", privacy, name="privacy"),
     path("contact", contact, name="contact"),
     path("about-us", about, name="about"),
-    path("home", home, name="home"),
+    path("categories", categories, name="categories"),
+    path("category/<str:slug>", category, name="category"),
     # Dashboard
     path("dashboard", dashboard, name="dashboard"),
     path("book/create", create_book, name="create_book"),

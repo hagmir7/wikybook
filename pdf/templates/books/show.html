@@ -99,7 +99,7 @@
                         <tr>
                             <td>{% trans 'Category' %}:</td>
                             <td>
-                                <a itemprop="category" href="">{{ book.category.name }}</a>
+                                <a itemprop="category" href="{% url "category" book.category.slug %}">{{ book.category.name }}</a>
                             </td>
                         </tr>
                         <tr>
@@ -190,8 +190,8 @@
                 <div class="book-description mb-6" itemprop="description">
                     {{ book.body|safe }}
                 </div>
-                 <div class="border container mt-5 py-3 rounded-4">
-                <h2 class="mb-4 text-dark">About the author</h2>
+                 <div class="border container mt-5 py-3 rounded-4 shadow-sm bg-gray">
+                <h2 class="mb-4 h3 text-dark">About the author</h2>
                 <div class="row g-3 align-items-center mb-3">
                     <div class="col-12 col-sm-auto">
                         {% if book.author.image %}
@@ -201,7 +201,7 @@
                         {% endif %}
                     </div>
                     <div class="col-12 col-sm">
-                    <h3 class="mb-0 fs-5">{{ book.author.full_name }} <small class="text-muted">✍️</small></h3>
+                    <h3 class="mb-0 fs-6">{{ book.author.full_name }} <small class="text-muted">✍️</small></h3>
                     <p class="text-muted mb-2 mb-sm-0">{{ book.author.book_set.count }} books · 14.7k followers</p>
                     </div>
                     <div class="col-12 col-sm-auto">
@@ -218,12 +218,14 @@
                         </a>
                     </div>
                 </div>
+               {% if book.author.description %}
                 <div class="row">
                     <div class="col-12 col-md-10 col-lg-12">
                         {{ book.author.description|truncatechars_html:500|safe }} 
                         <a href="{% url 'show_author' book.author.slug %}">Read more </a>          
                     </div>
                 </div>
+               {% endif %}
             </div>
             </div>
 

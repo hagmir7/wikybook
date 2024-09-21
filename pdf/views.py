@@ -177,6 +177,33 @@ def about(request):
     return render(request, "about.html")
 
 
+def categories(request):
+    category_list = Category.objects.all()
+    paginator = Paginator(category_list, 60)
+    page_number = request.GET.get('page')
+    categories = paginator.get_page(page_number)
+
+    context = {
+        "title" : getSite()['title'],
+        'categories' : categories
+    }
+    return render(request, "category/list.html", context)
+
+
+def category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    books_list = Book.objects.filter(category__name=category.name)
+    paginator = Paginator(books_list, 30)
+    page_number = request.GET.get("page")
+    books = paginator.get_page(page_number)
+    context = {
+        "title": f"{category.name} - books",
+        "category": category,
+        "books" : books
+    }
+    return render(request, "category/show.html", context)
+
+
 # Start Dashobard
 
 
