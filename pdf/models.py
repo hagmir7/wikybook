@@ -138,7 +138,7 @@ class Book(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     title = models.CharField(max_length=150, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="books", null=True, blank=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     language = models.ForeignKey(Language, on_delete=models.CASCADE, blank=True, null=True,)
 

@@ -1,0 +1,142 @@
+{% extends "dash.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="card-title">{{ title }}</div>
+            </div>
+            <div class="card-body">
+                <div class="card-sub d-flex align-items-center border">
+                    <div>
+                        <a href="/author/create" class="btn btn-label-info btn-round me-2 d-flex align-items-center">
+                            <i class="icon-plus mx-2"></i> 
+                            <span>Create</span>
+                        </a>
+                    </div>
+                    <div class="input-group rounded-pill overflow-hidden border border-2">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="text-body-secondary" width="26" height="26" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M13.856 13.85a3.429 3.429 0 1 0-4.855-4.842a3.429 3.429 0 0 0 4.855 4.842m0 0L16 16" />
+                                </g>
+                            </svg>
+                        </span>
+                        <input type="search" class="form-control border-0" placeholder="Search" aria-label="Search.." aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Author name</th>
+                                <th>Books</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for author in authors %}
+                            <tr class="author-table">
+                                <th scope="row">{{ author.id }}</th>
+                                <td>{{ author.full_name }}</td>
+                                <td>{{ author.books.count }}</td>
+                                <th scope="row" class="d-flex gap-2">
+                                    <a href="{% url 'update_author' author.slug %}" class="btn btn-success btn-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512">
+                                            <path d="M163 439.573l-90.569-90.569L322.78 98.656l90.57 90.569z" fill="currentColor" />
+                                            <path
+                                                d="M471.723 88.393l-48.115-48.114c-11.723-11.724-31.558-10.896-44.304 1.85l-45.202 45.203 90.569 90.568 45.202-45.202c12.743-12.746 13.572-32.582 1.85-44.305z"
+                                                fill="currentColor" />
+                                            <path d="M64.021 363.252L32 480l116.737-32.021z" fill="currentColor" />
+                                        </svg>
+                                    </a>
+                                    <a href="{% url 'show_author' author.slug %}" class="btn btn-info btn-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                                                d="M388.364 242.764v178.691A42.547 42.547 0 0 1 345.818 464H90.546A42.544 42.544 0 0 1 48 421.455V166.182a42.543 42.543 0 0 1 42.546-42.546h178.69M464 180.364V48H331.636M216 296L464 48" />
+                                        </svg>
+                                    </a>
+
+                                    <a href="" class="btn btn-danger btn-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                                                d="m112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" />
+                                            <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
+                                                d="M80 112h352" />
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                                                d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224" />
+                                        </svg>
+                                    </a>
+                                </th>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% if authors.paginator.num_pages > 1 %}
+                    <div class="pagination-container">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if authors.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" style="padding: 4.4px;"
+                                        href="?page={{ authors.previous_page_number }}" aria-label="Previous">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M5 12l14 0" />
+                                            <path d="M5 12l6 6" />
+                                            <path d="M5 12l6 -6" />
+                                        </svg>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                {% for num in authors.paginator.page_range %}
+                                {% if authors.number == num %}
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                                {% elif num > authors.number|add:'-3' and num < authors.number|add:'3' %} <li
+                                    class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                    {% if authors.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" style="padding: 4.4px;"
+                                            href="?page={{ authors.next_page_number }}" aria-label="Next">
+                                            <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M5 12l14 0" />
+                                                    <path d="M13 18l6 -6" />
+                                                    <path d="M13 6l6 6" />
+                                                </svg>
+                                            </span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

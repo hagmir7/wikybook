@@ -1,0 +1,54 @@
+{% extends "dash.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 card shadow-sm">
+                <h1 class="h4 mt-3">{{ title }}</h1>
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert p-2 m-0 alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST" enctype="multipart/form-data" class="mb-3">
+                    {% csrf_token %}
+                    <div class="create-form">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.full_name.id_for_label }}">{% trans 'Author name' %}</label>
+                                {{ form.full_name }}
+                                {% if form.full_name.errors %}
+                                <div class="text-danger">{{ form.full_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.image.id_for_label }}">Image</label>
+                                {{ form.image }}
+                                {% if form.image.errors %}
+                                    <div class="text-danger">{{ form.image.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label for="{{ form.description.id_for_label }}">Description</label>
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger">{{ form.description.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mt-2 btn btn-success w-100">{% trans "Create author" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

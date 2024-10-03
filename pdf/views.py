@@ -1,6 +1,6 @@
 # views.py
 import fitz  # PyMuPDF
-from .forms import BookForm, PostForm
+from .forms import *
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
@@ -242,7 +242,7 @@ def create_book(request, book_id=None):
     if book_id:
         book = get_object_or_404(Book, id=book_id, user=request.user)
         form = BookForm(instance=book)
-        title = "Update Book"
+        title = f"Update {book.name}"
     else:
         book = None
         form = BookForm()
@@ -255,12 +255,16 @@ def create_book(request, book_id=None):
             obj.user = request.user
             obj.save()
             action = "updated" if book_id else "created"
+            if(book_id):
+                book.verified = True
+                book.save()
             messages.success(request, f"Book {action} successfully.")
-            return redirect(reverse('create_book', kwargs={'book_id': obj.id}))
+            return redirect(reverse('update_book', kwargs={'book_id': obj.id}))
 
     context = {
         "form": form,
         "title": title,
+        "book" : book
     }
     return render(request, "dash/book/create.html", context)
 
@@ -307,3 +311,39 @@ def scrap(request):
 
 def home(request):
     return render(request, "home.html")
+
+
+def create_author(request):
+    form = AuthorForm()
+    if request.method == "POST":
+        form = AuthorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Author Created successfully")
+            return redirect("authors")
+    context = {"form": form, "title": f"Create new author"}
+    return render(request, 'dash/author/create.html', context)
+
+
+def update_author(request, slug):
+    author = get_object_or_404(Author, slug=slug)
+    if request.method == "POST":
+        form = AuthorForm(request.POST, request.FILES, instance=author)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Author updated successfully")
+            return redirect("authors")
+    else:
+        form = AuthorForm(instance=author)
+
+    context = {"form": form, "title": f"Update {author.full_name}", "author": author}
+    return render(request, "dash/author/create.html", context)
+
+
+def list_author(request):
+    authors_list = Author.objects.all().order_by("-created_at")
+    paginator = Paginator(authors_list, 30)
+    page_number = request.GET.get("page")
+    authors = paginator.get_page(page_number)
+    context = {"authors": authors, "title": f"Authors list"}
+    return render(request, "dash/author/list.html", context)

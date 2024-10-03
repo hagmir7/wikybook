@@ -7,11 +7,42 @@
     <div class="page-inner">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10 card shadow-sm">
-                <h1 class="h4 mt-3">{% trans "Create new book" %}</h1>
+                <h1 class="h4 mt-3">{{ title }}</h1>
                 {% if messages %}
                     {% for message in messages %}
                     <div class="alert p-2 m-0 alert-{{ message.tags }}">{{ message }}</div>
                     {% endfor %}
+                {% endif %}
+
+                <div class="mt-5 d-flex justify-content-center">
+                    <nav aria-label="Next and Previous navigation" class="w-100">
+                        <ul class="pagination d-flex justify-content-between">
+                            {% if book.pre %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-primary text-white" href="{% url 'update_book' book.pre.id %}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo; {% trans 'Previous' %}</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if book.next %}
+                            <li class="page-item">
+                                <a class="page-link btn btn-primary text-white" href="{% url 'update_book' book.next.id %}"
+                                    aria-label="Next">
+                                    <span aria-hidden="true">{% trans 'Next' %} &raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+
+                {% if book.verified %}
+                 
+                 <div class="m-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="20" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m8.667 12.633l1.505 1.721a1 1 0 0 0 1.564-.073L15.333 9.3"/><path d="M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0"/></g></svg>
+                    <span>{% trans "Book verified" %} </span>  
+                 <div>
                 {% endif %}
 
                 <form method="POST" enctype="multipart/form-data" class="mb-3">

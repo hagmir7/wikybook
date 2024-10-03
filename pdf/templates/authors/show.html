@@ -19,12 +19,22 @@
                     <div class="author-info">
                         <h1>{{ author.full_name }} - Books</h1>
                         {% if author.description %}
-                         <div class="description-author more">
-                            <div class="text-center">
+                         <div class="more">
+                            <div class="">
                                 {{ author.description|safe }}
                             </div>
                         </div>
                         {% endif %}
+                      {% if user.is_superuser %}
+                        <a href="{% url "update_author" author.slug %}" class="btn btn-success mt-3 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M9.533 11.15A1.82 1.82 0 0 0 9 12.438V15h2.578c.483 0 .947-.192 1.289-.534l7.6-7.604a1.82 1.82 0 0 0 0-2.577l-.751-.751a1.82 1.82 0 0 0-2.578 0z"/><path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3"/></g></svg>
+                            {% trans "Edit" %}
+                        </a>
+                         <a href="" class="btn btn-danger mt-3 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m18 9l-.84 8.398c-.127 1.273-.19 1.909-.48 2.39a2.5 2.5 0 0 1-1.075.973C15.098 21 14.46 21 13.18 21h-2.36c-1.279 0-1.918 0-2.425-.24a2.5 2.5 0 0 1-1.076-.973c-.288-.48-.352-1.116-.48-2.389L6 9m7.5 6.5v-5m-3 5v-5m-6-4h4.615m0 0l.386-2.672c.112-.486.516-.828.98-.828h3.038c.464 0 .867.342.98.828l.386 2.672m-5.77 0h5.77m0 0H19.5"/></svg>
+                            {% trans "Delete" %}
+                        </a>
+                      {% endif %}
                     </div>
                     <div class="mt-5 d-flex justify-content-center">
                         <nav aria-label="Next and Previous navigation" class="w-100">
