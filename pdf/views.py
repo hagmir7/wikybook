@@ -347,3 +347,12 @@ def list_author(request):
     authors = paginator.get_page(page_number)
     context = {"authors": authors, "title": f"Authors list"}
     return render(request, "dash/author/list.html", context)
+
+
+def rename_books(request):
+    books = Book.objects.filter(name__icontains=" by ")
+    for book in books:
+        name = str(book.name).lower().split(" by ")[0].title()
+        book.name = name
+        book.save()
+    return redirect('/')

@@ -26,7 +26,7 @@
                                     <a href="{% url "show_book" book.slug %}">{{ book.name }}</a>
                                 </div>
                                 <div class="book-attr">
-                                    <span class="book-publishing-year">2023, </span> <span class="book-author">{{ book.author.full_name }}</span>
+                                    <span class="book-publishing-year">{{ book.publication_date|date:"Y" }}, </span> <span class="book-author">{{ book.author.full_name }}</span>
                                 </div>
                                 <div class="book-rating">
                                     {% include "components/start.html" %}

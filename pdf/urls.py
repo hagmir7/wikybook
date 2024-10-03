@@ -41,4 +41,5 @@ urlpatterns = [
     path("goodreads", goodreads, name="goodreads"),
     # scrap
     path("scrap", scrap, name="scrap"),
+    path("rename_books", rename_books),
 ]
