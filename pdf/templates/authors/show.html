@@ -26,7 +26,7 @@
                         </div>
                         {% endif %}
                       {% if user.is_superuser %}
-                        <a href="{% url "update_author" author.slug %}" class="btn btn-success mt-3 text-white">
+                        <a href="{% url "update_author" author.slug|default:"404"%}" class="btn btn-success mt-3 text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M9.533 11.15A1.82 1.82 0 0 0 9 12.438V15h2.578c.483 0 .947-.192 1.289-.534l7.6-7.604a1.82 1.82 0 0 0 0-2.577l-.751-.751a1.82 1.82 0 0 0-2.578 0z"/><path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3"/></g></svg>
                             {% trans "Edit" %}
                         </a>
@@ -69,7 +69,7 @@
                                         <meta itemprop="name" content="{{ book.name }}" />
                                         <meta itemprop="datePublished" content="{{ book.created_at|date:"Y" }}" />
                                         <div class="book-cover col-lg-3 col-3">
-                                            <a href="{% url 'show_book' book.slug %}">
+                                            <a href="{% url 'show_book' book.slug|default:"404"%}">
                                                 {% if book.image %}
                                                 <img src="{{ book.image.url }}" alt="{{ book.name }}" class="img-fluid">
                                                 {% else %}
@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="book-info col-lg-9 col-9">
                                             <h2 class="book-title">
-                                                <a href="{% url 'show_book' book.slug %}">{{ book.name }}</a>
+                                                <a href="{% url 'show_book' book.slug|default:"404"%}">{{ book.name }}</a>
                                             </h2>
                                             <div class="book-attr">
                                                 <span class="book-publishing-year">{{ book.created_at|date:"Y" }}</span>

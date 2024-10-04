@@ -8,7 +8,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="row book">
                     <div class="book-cover col-lg-3 col-3">
-                        <a href="{% url 'show_book' book.slug %}">
+                        <a href="{% url 'show_book' book.slug|default:"404"%}">
                             {% if book.image %}
                             <img src="{{ book.image.url }}" alt="{{ book.name }}" class="img-fluid">
                             {% else %}
@@ -17,7 +17,7 @@
                     </div>
                     <div class="book-info col-lg-9 col-9 px-3">
                         <div class="book-title">
-                            <a href="{% url 'show_book' book.slug %}">{{ book.name }}</a>
+                            <a href="{% url 'show_book' book.slug|default:"404"%}">{{ book.name }}</a>
                         </div>
                         <div class="book-attr">
                             <span class="book-publishing-year">{{ book.publication_date|date:"Y" }}, </span>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="book-short-description">{{ book.description }}</div>
                         <div class="book-settings">
-                            <a href="{% url 'show_book' book.slug %}">
+                            <a href="{% url 'show_book' book.slug|default:"404"%}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"

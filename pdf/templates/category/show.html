@@ -41,7 +41,7 @@
                                         <meta itemprop="name" content="{{ book.name }}" />
                                         <meta itemprop="datePublished" content="{{ book.created_at|date:"Y" }}" />
                                         <div class="book-cover col-lg-3 col-3">
-                                            <a href="{% url 'show_book' book.slug %}">
+                                            <a href="{% url 'show_book' book.slug|default:"404"%}">
                                                 {% if book.image %}
                                                 <img src="{{ book.image.url }}" alt="{{ book.name }}" class="img-fluid">
                                                 {% else %}
@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="book-info col-lg-9 col-9">
                                             <h2 class="book-title">
-                                                <a href="{% url 'show_book' book.slug %}">{{ book.name }}</a>
+                                                <a href="{% url 'show_book' book.slug|default:"404"%}">{{ book.name }}</a>
                                             </h2>
                                             <div class="book-attr">
                                                 <span class="book-publishing-year">{{ book.created_at|date:"Y" }}</span>

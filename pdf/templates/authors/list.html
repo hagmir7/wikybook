@@ -17,13 +17,13 @@
                         <div class="col-sm-4 col-md-3 col-lg-2 col-6">
                             <div class="author overflow-hidden rounded-4">
                                 <div class="author-photo">
-                                    <a href="{% url "show_author" author.slug %}" class="text-center">
+                                    <a href="{% url "show_author" author.slug|default:"404"%}" class="text-center">
                                         <img class="cover w-100" src="/static/imgs/noavatar.png" alt="{{ author.full_name }}">
                                     </a>
                                 </div>
                                 <div class="author-info py-2">
                                     <h4 class="author-name">
-                                        <a href="{% url "show_author" author.slug %}">{{ author.full_name }}</a>
+                                        <a href="{% url "show_author" author.slug|default:"404"%}">{{ author.full_name }}</a>
                                     </h4>
                                     <span class="author-books text-bold">{{ author.book_set.count }} books</span>
                                 </div>

@@ -14,7 +14,7 @@
                      <div class="col-lg-6 col-md-6">
                         <div class="row book">
                             <div class="book-cover col-lg-3 col-3">
-                                <a href="{% url "show_book" book.slug %}">
+                                <a href="{% url "show_book" book.slug|default:"404" %}">
                                     {% if book.image %}
                                     <img src="{{ book.image.url }}" alt="{{ book.name }}" class="img-fluid">
                                     {% else %}
@@ -23,7 +23,7 @@
                             </div>
                             <div class="book-info col-lg-9 col-9">
                                 <div class="book-title">
-                                    <a href="{% url "show_book" book.slug %}">{{ book.name }}</a>
+                                    <a href="{% url "show_book" book.slug|default:"404" %}">{{ book.name }}</a>
                                 </div>
                                 <div class="book-attr">
                                     <span class="book-publishing-year">{{ book.publication_date|date:"Y" }}, </span> <span class="book-author">{{ book.author.full_name }}</span>
@@ -52,15 +52,15 @@
                     {% for author in authors %}
                         <div class="col-lg-12 col-md-6 author">
                             <div class="author-photo">
-                                <a href="{% url "show_author" author.slug %}" class="text-center">
+                                <a href="{% url "show_author"  author.slug|default:"404" %}" class="text-center">
                                     <img src="/static/imgs/noavatar.png" alt="{{ author.full_name }}" class="rounded-circle">
                                 </a>
                             </div>
                             <div class="author-info">
                                 <div class="author-name">
-                                    <a href="{% url "show_author" author.slug %}"> {{ author.full_name }}</a>
+                                    <a href="{% url "show_author"  author.slug|default:"404" %}"> {{ author.full_name }}</a>
                                 </div>
-                                <div class="author-books">{{ author.book_set.count }} books</div>
+                                <div class="author-books">{{ author.books.count }} books</div>
                             </div>
                         </div>
                     {% endfor %}

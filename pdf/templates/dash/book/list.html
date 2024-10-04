@@ -55,7 +55,7 @@
                                             <path d="M64.021 363.252L32 480l116.737-32.021z" fill="currentColor" />
                                         </svg>
                                     </a>
-                                    <a href="{% url 'show_book' book.slug %}" class="btn btn-info btn-sm">
+                                    <a href="{% url 'show_book' book.slug|default:"404"%}" class="btn btn-info btn-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512">
                                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
                                                 d="M388.364 242.764v178.691A42.547 42.547 0 0 1 345.818 464H90.546A42.544 42.544 0 0 1 48 421.455V166.182a42.543 42.543 0 0 1 42.546-42.546h178.69M464 180.364V48H331.636M216 296L464 48" />

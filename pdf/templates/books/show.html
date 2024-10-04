@@ -4,8 +4,8 @@
 
 
 {% block content %}
-<section class="single-book" data-book="{{ book.slug }}" itemscope itemtype="http://schema.org/Book">
-    <meta itemprop="url" content="/book/{{ book.slug }}" />
+<section class="single-book" data-book="{{ book.slug|default:"404"}}" itemscope itemtype="http://schema.org/Book">
+    <meta itemprop="url" content="/book/{{ book.slug|default:"404"}}" />
     <meta itemprop="author" content="{{ book.author.full_name }}" />
     <meta itemprop="publisher" content="{{ book.author.full_name }}" />
     <div class="container">
@@ -66,7 +66,7 @@
             </div>
 
             <div class="col-lg-9">
-                <h1 itemprop="name" class="h3" dir="auto">{{ book.name }}</h1>
+                <h1 itemprop="name" class="h3" dir="auto">{{ book.name }} {% trans "by" %} {{ book.author.full_name}}</h1>
                 <div class="book-rating general" itemprop="aggregateRating" itemscope
                     itemtype="http://schema.org/AggregateRating">
                     <div class="d-flex align-items-center gap-2">

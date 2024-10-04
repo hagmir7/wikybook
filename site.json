@@ -1,8 +1,13 @@
 {
-    "name": "Facepy",
-    "title" : "Facepy: Your Guide to Book Summaries",
-    "books_title" : "Facepy: Find Your Favorite Books",
-    "header_logo" : "/static/image/facepy.png",
-    "favicon" : "/static/image/favicon.ico",
-    "description" : "Facepy is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres"
+  "name": "Facepy",
+  "title": "Facepy: Your Guide to Book Summaries",
+  "books_title": "Facepy: Find Your Favorite Books",
+  "header_logo": "/static/facepy/fp-full-logo.png",
+  "rounded_logo": "/static/facepy/facepy-rounded.png",
+  "favicon": "/static/facepy/favicon.ico",
+  "email": "contact@facepy.com",
+  "description": "Facepy is your ultimate guide to concise and insightful book summaries. Explore a wide range of book summaries across various genres",
+  "media": {
+    "facebook": "facepy"
+  }
 }

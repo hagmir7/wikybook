@@ -21,11 +21,11 @@
         "dateModified": "{{ post.updated_at|date:'c' }}",
         "author": {
             "@type": "Person",
-            "name": "WikyBook"
+            "name": "{{ name }}"
         },
         "publisher": {
             "@type": "Organization",
-            "name": "WikyBook",
+            "name": "{{ name }}",
             "logo": {
                 "@type": "ImageObject",
                 "url": "{{ post.image.url }}"
