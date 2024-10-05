@@ -430,6 +430,8 @@ def post_meta_description(name):
 
 
 def generate_post(request, book_id):
+    if not request.user.is_superuser:
+        return Http404("Page not found")
     book = get_object_or_404(Book, id=book_id)
 
     title = f"{book.name} by {book.author.full_name}"
