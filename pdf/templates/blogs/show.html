@@ -88,7 +88,9 @@
                     <div class="overflow-hidden border-2 border rounded-4">
                         {% if post.image %}
                         <img src="{{ post.image.url }}" class="w-100 h-auto" alt="{{ post.title }}" />
-                        {% else %}{% endif %}
+                        {% else %}
+                        <img src="/static/default.png" class="w-100 h-auto" alt="{{ post.title }}" />
+                        {% endif %}
                     </div>
 
                     <!-- Post content -->
