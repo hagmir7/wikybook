@@ -10,10 +10,10 @@ from pdf.sites.goodreaders import goodreads
 
 urlpatterns = [
     path("upload", upload, name="upload"),
-    path("", index, name="index"),
+    path("", blogs, name="index"),
     path("blogs", blogs, name="blogs"),
     path("blog/<str:slug>", show_blog, name="show_blog"),
-    path('blog/delete/<int:id>', delete_blog, name="delete_blog"),
+    path("blog/delete/<int:id>", delete_blog, name="delete_blog"),
     path("books", books, name="books"),
     path("authors", authors, name="authors"),
     path("author/<str:slug>/books", show_author, name="show_author"),

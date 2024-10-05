@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
-
-
 {% block content %}
 <section class="single-book" data-book="{{ book.slug|default:"404"}}" itemscope itemtype="http://schema.org/Book">
     <meta itemprop="url" content="/book/{{ book.slug|default:"404"}}" />
@@ -19,7 +17,6 @@
                             <img src="{% static "imgs/default-book-image.png" %}" alt="{{ book.name }}" class="img-fluid" itemprop="image">
                         {% endif %}
                     </div>
-
                     <div class="social-btns">
                         <a target="_blank" aria-label="{% trans 'Share with Facebook' %}" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
                             class="fb-xfbml-parse-ignore btn facebook">
@@ -184,11 +181,9 @@
                         </ul>
                     </nav>
                 </div>
-
-
-
+                {% if user.is_superuser %}
                 <a href="{% url 'generate_post' book.id %}" class="btn btn-success">Generate Sumary</a>
-
+                {% endif %}
                 <div class="book-description mb-6" itemprop="description">
                     {{ book.body|safe }}
                 </div>
