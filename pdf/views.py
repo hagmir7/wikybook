@@ -51,7 +51,7 @@ def delete_blog(request, id):
     post = get_object_or_404(Post, id=id)
     post.delete()
     messages.success(request, "Post deleted successfully")
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+    return redirect("blogs")
 
 def show_blog(request, slug):
     post = get_object_or_404(Post, slug=slug)
