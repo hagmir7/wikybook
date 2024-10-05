@@ -13,6 +13,7 @@ urlpatterns = [
     path("", index, name="index"),
     path("blogs", blogs, name="blogs"),
     path("blog/<str:slug>", show_blog, name="show_blog"),
+    path('blog/delete/<int:id>', delete_blog, name="delete_blog"),
     path("books", books, name="books"),
     path("authors", authors, name="authors"),
     path("author/<str:slug>/books", show_author, name="show_author"),
@@ -29,7 +30,7 @@ urlpatterns = [
     path("book/create", create_book, name="create_book"),
     path("book/update/<int:book_id>", create_book, name="update_book"),
     path("post/create/", create_post, name="create_post"),
-    path("post/create/<int:id>/", create_post, name="update_post"),
+    path("post/update/<int:id>/", create_post, name="update_post"),
     path("book/list", book_list, name="book_list"),
     path("book/<str:slug>", show_book, name="show_book"),
     path("post/list", post_list, name="post_list"),
@@ -42,4 +43,5 @@ urlpatterns = [
     # scrap
     path("scrap", scrap, name="scrap"),
     path("rename_books", rename_books),
+    path("generate/post/<int:book_id>", generate_post, name="generate_post"),
 ]

@@ -16,6 +16,9 @@ from django.http import (
     HttpResponseBadRequest,
 )
 
+import openai
+import os
+
 
 from django.conf import settings
 import json
@@ -43,6 +46,12 @@ def blogs(request):
     context = {"posts": posts, "title": title}
     return render(request, "blogs/list.html", context)
 
+
+def delete_blog(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    messages.success(request, "Post deleted successfully")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 def show_blog(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -271,7 +280,7 @@ def create_book(request, book_id=None):
 
 def create_post(request, id=None):
     if id:
-        post = get_object_or_404(Post, id=id, user=request.user)
+        post = get_object_or_404(Post, id=id)
         form = PostForm(instance=post)
         title = "Update post"
     else:
@@ -283,11 +292,12 @@ def create_post(request, id=None):
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             obj = form.save(commit=False)
-            obj.user = request.user
+            if not id:
+                obj.user = request.user
             obj.save()
             action = "updated" if id else "created"
             messages.success(request, f"post {action} successfully.")
-            return redirect(reverse("create_post", kwargs={"id": obj.id}))
+            return redirect(reverse("update_post", kwargs={"id": obj.id}))
 
     context = {
         "form": form,
@@ -356,3 +366,80 @@ def rename_books(request):
         book.name = name
         book.save()
     return redirect('/')
+
+openai.api_key = os.getenv("AI_KEY")
+
+
+import json
+import markdown
+
+
+def post_content_ai(book):
+    prompt = f"""Summarize the book '{book.name}' by {book.author}. 
+            Please follow these guidelines:
+            1. Use Markdown format.
+            2. Use proper heading hierarchy (H2, H3, H4) for different sections, don't add (h1) title to the summary .
+            3. Use **bold** for important words or phrases.
+            4. Include a brief introduction, main themes, key points, and a conclusion.
+            5. Aim for a comprehensive yet concise summary.
+            6. Ensure the content is SEO-friendly with relevant keywords.
+            7. Content must be long more than 13000 letters
+            Please don't make mstiks return just a result no anothor text
+        """
+    response = openai.ChatCompletion.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that summarizes books.",
+            },
+            {"role": "user", "content": prompt},
+        ],
+    )
+    return response.choices[0].message.content
+
+
+def post_meta_keywords(name):
+    prompt = f"Give me meta keywords for this book {name}, and return just result by comma , and less than 150 charactor"
+    response = openai.ChatCompletion.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that get books. book infos",
+            },
+            {"role": "user", "content": prompt},
+        ],
+    )
+    return response.choices[0].message.content
+
+
+def post_meta_description(name):
+    prompt = f"Give me meta description for this book {name}, and return just result"
+    response = openai.ChatCompletion.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that get books. book infos",
+            },
+            {"role": "user", "content": prompt},
+        ],
+    )
+    return response.choices[0].message.content
+
+
+def generate_post(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+
+    title = f"{book.name} by {book.author.full_name}"
+    post = Post.objects.create(
+        title=f"{title} - Book Summary",
+        body=markdown.markdown(post_content_ai(book)),
+        user=User.objects.get(id=1),
+        category=book.category,
+        description=post_meta_description(title),
+        tags=post_meta_keywords(title),
+    )
+
+    return redirect("show_blog", post.slug)

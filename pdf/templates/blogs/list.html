@@ -16,8 +16,12 @@
                 <div class="post">
                     <div class="post-img">
                         <a href="{% url "show_blog" post.slug %}">
-                            <img src="{{ post.image.url }}"
-                                alt="{{ post.title }}">
+                            {% if post.image %}
+                            
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% else %}
+                            <img src="" alt="{{ post.title }}">
+                            {% endif %}
                         </a>
                     </div>
                     <div class="post-info">

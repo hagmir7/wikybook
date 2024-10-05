@@ -169,14 +169,14 @@
                         <ul class="pagination d-flex justify-content-between">
                             {% if book.pre %}
                             <li class="page-item">
-                                <a class="page-link btn btn-primary" href="{% url 'show_book' book.pre.slug %}" aria-label="Previous">
+                                <a class="page-link btn btn-primary" href="{% url 'show_book' book.pre.slug|default:'404' %}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo; {% trans 'Previous' %}</span>
                                 </a>
                             </li>
                             {% endif %}
                             {% if book.next %}
                             <li class="page-item">
-                                <a class="page-link btn btn-primary" href="{% url 'show_book' book.next.slug %}" aria-label="Next">
+                                <a class="page-link btn btn-primary" href="{% url 'show_book' book.next.slug|default:'404' %}" aria-label="Next">
                                     <span aria-hidden="true">{% trans 'Next' %} &raquo;</span>
                                 </a>
                             </li>
@@ -184,6 +184,11 @@
                         </ul>
                     </nav>
                 </div>
+
+
+
+                <a href="{% url 'generate_post' book.id %}" class="btn btn-success">Generate Sumary</a>
+
                 <div class="book-description mb-6" itemprop="description">
                     {{ book.body|safe }}
                 </div>

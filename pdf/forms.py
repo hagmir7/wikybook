@@ -11,16 +11,22 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["title", "image", "tags", "category", "description", "body"]
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({"class": "form-control"})
 
+
     def clean_title(self):
-        title = self.cleaned_data.get('title')
-        if Post.objects.filter(title=title).exists():
-            raise ValidationError("Post with this title is already exists.")
+        title = self.cleaned_data.get("title")
+        if self.instance.pk:
+            if Post.objects.filter(title=title).exclude(pk=self.instance.pk).exists():
+                raise ValidationError("Post with this title already exists.")
+        else:
+            if Post.objects.filter(title=title).exists():
+                raise ValidationError("Post with this title already exists.")
+
         return title
 
 

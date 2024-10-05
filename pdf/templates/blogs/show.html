@@ -15,7 +15,7 @@
         },
         "headline": "{{ post.title|escape }}",
         "image": [
-            "{{ post.image.url|default_if_none:'' }}"
+            {% comment %} "{{ post.image.url|default_if_none:'' }}" {% endcomment %}
         ],
         "datePublished": "{{ post.created_at|date:'c' }}",
         "dateModified": "{{ post.updated_at|date:'c' }}",
@@ -28,7 +28,7 @@
             "name": "{{ name }}",
             "logo": {
                 "@type": "ImageObject",
-                "url": "{{ post.image.url }}"
+                {% comment %} "url": "{{ post.image.url }}" {% endcomment %}
             }
         },
         "description": "{{ post.description|escape }}"
@@ -81,9 +81,14 @@
                         </a>
 
                     </div>
-
+                    {% if user.is_superuser %}
+                    <a class="btn btn-success text-white mb-2" href="{% url 'update_post' post.id %}">Edit</a>
+                    <a class="btn btn-danger text-white mb-2" href="{% url 'delete_blog' post.id %}">Delete</a>
+                    {% endif %}
                     <div class="overflow-hidden border-2 border rounded-4">
+                        {% if post.image %}
                         <img src="{{ post.image.url }}" class="w-100 h-auto" alt="{{ post.title }}" />
+                        {% else %}{% endif %}
                     </div>
 
                     <!-- Post content -->
