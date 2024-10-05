@@ -255,5 +255,5 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         if self.slug == None:
-            self.slug = str(slugify(self.title))[0:150]
+            self.slug = str(slugify(self.title))[0:49]
         super(Post, self).save(*args, **kwargs)
