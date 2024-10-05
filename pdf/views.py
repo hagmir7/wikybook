@@ -439,7 +439,7 @@ def generate_post(request, book_id):
         user=User.objects.get(id=1),
         category=book.category,
         description=post_meta_description(title),
-        tags=post_meta_keywords(title),
+        tags=str(post_meta_keywords(title))[0:150],
     )
 
     return redirect("show_blog", post.slug)
