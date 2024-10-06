@@ -24,6 +24,12 @@
                     </div>
                                            
                         <form id="contact-form" method="post" class="validate mb-3 contact-form">
+                            {% csrf_token %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert p-2 m-0 mb-3 alert-{{ message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input class="form-control" placeholder="Email" type="email" name="email">
@@ -35,7 +41,7 @@
                                 <input class="form-control" placeholder="Subject" type="text" name="subject">
                             </div>
                             <div class="col-md-12">
-                                <textarea class="form-control mb-3" name="message" rows="3" placeholder="Message"></textarea>
+                                <textarea class="form-control mb-3" name="body" rows="3" placeholder="Message"></textarea>
                                 <button type="submit" class="btn btn-primary submit">Send Message</button>
                             </div>
                         </div>

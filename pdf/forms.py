@@ -1,6 +1,6 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from .models import Book, Post, Author
+from .models import Book, Post, Author, Contact
 from django.core.exceptions import ValidationError
 import os
 
@@ -87,3 +87,9 @@ class AuthorForm(forms.ModelForm):
         if Author.objects.filter(full_name=full_name).exists():
             raise ValidationError("Author with this full name is already exists.")
         return full_name
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ["name", "email", "subject", "body"]

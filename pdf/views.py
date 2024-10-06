@@ -8,6 +8,12 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
 from .tasks import check_website_status
+import openai
+import os
+import json
+import markdown
+
+from django.conf import settings
 from django.http import (
     Http404,
     HttpResponseRedirect,
@@ -16,12 +22,6 @@ from django.http import (
     HttpResponseBadRequest,
 )
 
-import openai
-import os
-
-
-from django.conf import settings
-import json
 
 def getSite():
     with open(settings.BASE_DIR / "site.json", 'r') as file:
@@ -37,7 +37,7 @@ def index(request):
 
 def blogs(request):
     posts_list = Post.objects.all().order_by("-created_at")
-    paginator = Paginator(posts_list, 20)
+    paginator = Paginator(posts_list, 21)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
 
@@ -184,7 +184,16 @@ def privacy(request):
 
 
 def contact(request):
-    return render(request, "contact.html")
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been sent successfully.")
+            return redirect("contact") 
+    else:
+        form = ContactForm()
+    context = {"form": form, "title": f"Contact us - {getSite()['name']}"}
+    return render(request, "contact.html", context)
 
 
 def about(request):
@@ -372,11 +381,8 @@ def rename_books(request):
         book.save()
     return redirect('/')
 
+
 openai.api_key = os.getenv("AI_KEY")
-
-
-import json
-import markdown
 
 
 def post_content_ai(book):
