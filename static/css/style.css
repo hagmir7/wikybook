@@ -4,6 +4,13 @@
 .cover {
     object-fit: cover !important;
 }
+p{
+    font-family: 'Montserrat';
+    font-weight: 500;
+    line-height: 32px;
+    font-size: 17px;
+    margin: 23px 0px;
+}
 
 .m-0 {
     margin: 0
@@ -1108,7 +1115,7 @@ h4,
 h5,
 h6 {
     color: #272629;
-    font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Montserrat'!important;
     font-weight: 700
 }
 

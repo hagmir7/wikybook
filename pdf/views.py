@@ -383,7 +383,7 @@ def post_content_ai(book):
             4. Include a brief introduction, main themes, key points, and a conclusion.
             5. Aim for a comprehensive yet concise summary.
             6. Ensure the content is SEO-friendly with relevant keywords.
-            7. Content must be long more than 13000 letters
+            7. Content must be long more than 13000 letters, if you can
             8. Add Human Touch to the content
             Please don't make mstiks return just a result no anothor text
         """
