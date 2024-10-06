@@ -1359,7 +1359,7 @@ h6 {
 }
 
 .bar {
-    width: 20px;
+    width: 25px;
     height: 3px;
     position: relative;
     transform: translateY(25px);
@@ -1368,7 +1368,7 @@ h6 {
 }
 
 .bar:after {
-    width: 20px;
+    width: 25px;
     height: 3px;
     content: "";
     position: absolute;
