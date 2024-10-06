@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 import requests
 from pdf.models import Language, Category, Book, Author
 from django.core.files import File
@@ -273,3 +273,12 @@ if __name__ == "__main__":
         pass
 
     goodreads(DummyRequest())
+
+
+def one_book(request):
+
+    url = request.GET.get("url")
+
+    if url:
+        get_book(url)
+    return redirect('books')

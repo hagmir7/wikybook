@@ -1,20 +1,33 @@
-{% extends "base.html" %}
+{% extends "dash.html" %}
 
 
 {% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 p-4">
+                <h1 class="h3">Scrap goodreads<h1>
+                <form action="{% url 'goodreads' %}" method="get" class="card p-4 shadow-sm">
+                    <h2 class="h5">Scrap a list of books</h2>
+                    <label for="">Start</label>
+                    <input type="text" class="form-control" name="start">
+                    <label for="">Url</label>
+                    <input type="text" class="form-control mt-2" name="url">
+                    <button class="btn btn-success btn-sm mt-4" type="submit">
+                        Scrap
+                    </button>
+                </form>
 
-<div class="row d-flex justify-content-center">
-    <div class="col-md-6 p-4">
-        <form action="{% url 'goodreads' %}" method="get">
-            <label for="">Start</label>
-            <input type="text" class="form-control" name="start">
-            <label for="">url</label>
-            <input type="text" class="form-control mt-2" name="url">
-            <button class="btn btn-success btn-sm mt-4" type="submit">
-                Scrap
-            </button>
-        </form>
+                <form action="{% url 'goodreads_one_book' %}" method="get" class="card p-4 mt-4 shadow-sm">
+                    <h2 class="h5">Scrap One book</h2>
+                    <label for="">URL</label>
+                    <input type="text" class="form-control mt-2" name="url">
+                    <button class="btn btn-success btn-sm mt-4" type="submit">
+                        Scrap
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-
 {% endblock content %}

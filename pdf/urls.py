@@ -5,7 +5,7 @@ from pdf.sites.dpdf import dpdf
 from pdf.sites.pdfjatt import pdfjatt
 from pdf.sites.archive import archive
 
-from pdf.sites.goodreaders import goodreads
+from pdf.sites.goodreaders import goodreads, one_book
 
 
 urlpatterns = [
@@ -43,6 +43,7 @@ urlpatterns = [
     path("goodreads", goodreads, name="goodreads"),
     # scrap
     path("scrap", scrap, name="scrap"),
+    path("goodreads-one-book", one_book, name="goodreads_one_book"),
     path("rename_books", rename_books),
     path("generate/post/<int:book_id>", generate_post, name="generate_post"),
 ]
