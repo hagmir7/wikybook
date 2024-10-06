@@ -135,7 +135,7 @@ class BookManager(models.Manager):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(max_length=300, null=True, blank=True)
     title = models.CharField(max_length=150, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="books", null=True, blank=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books', null=True, blank=True)
