@@ -36,9 +36,9 @@
       </div>
     </div>
     {% include "components/nav.html" %}
-    <div class="menu-toggler position-relative" data-toggle="collapse" data-target="#header-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <a href="/menu" class="menu-toggler position-relative mt-2" aria-label="Menu">
       <div class="bar"></div>
-    </div>
+    </a>
   </header>
   {% block content %}{% endblock content %}
   {% include "components/footer.html" %}

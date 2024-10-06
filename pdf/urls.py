@@ -12,6 +12,7 @@ urlpatterns = [
     path("upload", upload, name="upload"),
     path("", blogs, name="index"),
     path("blogs", blogs, name="blogs"),
+    path("menu", menu, name="menu"),
     path("blog/<str:slug>", show_blog, name="show_blog"),
     path("blog/delete/<int:id>", delete_blog, name="delete_blog"),
     path("books", books, name="books"),

@@ -37,14 +37,19 @@ def index(request):
 
 def blogs(request):
     posts_list = Post.objects.all().order_by("-created_at")
-    paginator = Paginator(posts_list, 50)
+    paginator = Paginator(posts_list, 20)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
-
 
     title = getSite()['title']
     context = {"posts": posts, "title": title}
     return render(request, "blogs/list.html", context)
+
+
+def menu(request):
+    name = getSite()["name"]
+    context = {"title": f"Menu - {name}"}
+    return render(request, "menu.html", context)
 
 
 def delete_blog(request, id):
