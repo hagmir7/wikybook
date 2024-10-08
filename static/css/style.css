@@ -12,6 +12,12 @@ p{
     margin: 23px 0px;
 }
 
+.book-description{
+    font-family: 'Montserrat';
+    margin-top: 23px;
+    line-height: 27px;
+}
+
 .m-0 {
     margin: 0
 }
@@ -1077,7 +1083,8 @@ pre {
 }
 
 * {
-    outline: 0
+    outline: 0;
+    font-family: "Montserrat", Arial, sans-serif;
 }
 
 html {
@@ -1085,10 +1092,12 @@ html {
     min-height: 100%
 }
 
+
+
 body {
     background: #FEFEFE;
     background: linear-gradient(to bottom, #fefefe 0, #e9eef3 100%);
-    font-family: Poppins, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Montserrat", Arial, sans-serif;
     margin: 0 0 60px;
     overflow-x: hidden;
     color: #8d97ad;
