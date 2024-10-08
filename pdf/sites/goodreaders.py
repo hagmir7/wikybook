@@ -101,7 +101,10 @@ def page_download(data):
 
         author_name = data.get("author", "Unknown Author")
         author, _ = Author.objects.get_or_create(
-            description=data.get("author_description"), full_name=author_name
+            full_name=author_name, 
+            defaults={
+                'description' : data.get("author_description")
+            }
         )
 
         language_name = data.get("language", "Unknown Language")
