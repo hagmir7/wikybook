@@ -115,7 +115,7 @@ class Author(models.Model):
 
     def save(self, *args, **kwargs):
         if self.slug == None:
-            self.slug = slugify(self.full_name)[0:255]
+            self.slug = slugify(self.full_name)[0:250]
         super(Author, self).save(*args, **kwargs)
 
     
@@ -183,7 +183,7 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)[0:255]
+            self.slug = slugify(self.name)[0:250]
         super().save(*args, **kwargs)
 
 
