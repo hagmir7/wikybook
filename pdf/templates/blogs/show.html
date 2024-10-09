@@ -3,8 +3,6 @@
 
 {% block content %}
 <section class="single-post">
-    {{ site.ads|safe }}
-
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -15,7 +13,7 @@
         },
         "headline": "{{ post.title|escape }}",
         "image": [
-            "{{ post.image.url|default:'/static/default.png' }}"
+            "{% if post.image %}{{ post.image.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}/static/default.png{% endif %}"
         ],
         "datePublished": "{{ post.created_at|date:'c' }}",
         "dateModified": "{{ post.updated_at|date:'c' }}",
@@ -28,7 +26,7 @@
             "name": "{{ name }}",
             "logo": {
                 "@type": "ImageObject",
-                "url": "{{ post.image.url|default:'/static/default.png' }}"
+                "url": "{{ request.scheme }}://{{ request.get_host }}{% if post.image %}{{ post.image.url }}{% else %}/static/default.png{% endif %}"
             }
         },
         "description": "{{ post.description|escape }}"
