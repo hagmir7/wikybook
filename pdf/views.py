@@ -102,8 +102,7 @@ def books(request):
         description = Book.objects.filter(description__icontains=query)
         tags = Book.objects.filter(tags__icontains=query)
         body = Book.objects.filter(body__icontains=query)
-        result = name | isbn | description | tags | body 
-        books_list = result.order_by("-created_at")
+        books_list = name | isbn | description | tags | body
     else:
         books_list = Book.objects.all().order_by("-created_at")
     paginator = Paginator(books_list, 60)
