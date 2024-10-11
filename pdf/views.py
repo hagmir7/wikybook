@@ -52,8 +52,15 @@ def robots(request):
 
 
 def blogs(request):
-    posts_list = Post.objects.all().order_by("-created_at")
-    paginator = Paginator(posts_list, 21)
+
+    if request.GET.get("query"):
+        query = request.GET.get("query")
+        title = Post.objects.filter(title__icontains=query)
+        description = Post.objects.filter(description__icontains=query)
+        posts_list = title | description
+    else:
+        posts_list = Post.objects.all()
+    paginator = Paginator(posts_list.order_by("-created_at"), 21)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
 
@@ -88,7 +95,17 @@ def show_blog(request, slug):
 
 
 def books(request):
-    books_list = Book.objects.all().order_by("-created_at")
+    if request.GET.get('query'):
+        query = request.GET.get('query');
+        name = Book.objects.filter(name__icontains=query)
+        isbn = Book.objects.filter(isbn__icontains=query)
+        description = Book.objects.filter(description__icontains=query)
+        tags = Book.objects.filter(tags__icontains=query)
+        body = Book.objects.filter(body__icontains=query)
+        result = name | isbn | description | tags | body 
+        books_list = result.order_by("-created_at")
+    else:
+        books_list = Book.objects.all().order_by("-created_at")
     paginator = Paginator(books_list, 60)
     page_number = request.GET.get("page")
     books = paginator.get_page(page_number)
