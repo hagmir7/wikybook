@@ -12,7 +12,7 @@ import openai
 import os
 import json
 import markdown
-
+from django.views.decorators.http import require_GET
 from django.conf import settings
 from django.http import (
     Http404,
@@ -33,6 +33,22 @@ def index(request):
     authors = Author.objects.all().order_by("-created_at")[0:50]
     context = {"books": books, "authors": authors}
     return render(request, "index.html", context)
+
+
+@require_GET
+def robots(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /private/",
+        "Disallow: /admin",
+        "Disallow: /api/",
+        "",
+        "User-agent: Googlebot",
+        "Disallow: /search/",
+        "",
+        f"Sitemap: https://www.facepy.com/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
 def blogs(request):

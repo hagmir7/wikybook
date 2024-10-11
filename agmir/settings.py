@@ -23,6 +23,8 @@ CPANEL = str(os.environ.get("CPANEL")) == "1"
 AI_KEY = os.environ.get("AI_KEY")
 
 
+
+
 # CELERY_BROKER_URL = str(os.environ.get("CELERY_BROKER_URL"))  # "redis://localhost:6379"
 # CELERY_RESULT_BACKEND = str(os.environ.get("CELERY_RESULT_BACKEND")) # "redis://localhost:6379"
 
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_summernote",
-     "pdf",
+    "django.contrib.sitemaps",
+    "pdf",
 ]
 
 
@@ -155,7 +158,6 @@ SUMMERNOTE_CONFIG = {
     "width": "100%",
     "height": "400px",
 }
-
 
 
 if CPANEL:

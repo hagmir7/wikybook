@@ -8,6 +8,9 @@ from pdf.sites.archive import archive
 from pdf.sites.goodreaders import goodreads, one_book
 
 
+
+
+
 urlpatterns = [
     path("upload", upload, name="upload"),
     path("", blogs, name="index"),
@@ -35,6 +38,7 @@ urlpatterns = [
     path("book/list", book_list, name="book_list"),
     path("book/<str:slug>", show_book, name="show_book"),
     path("post/list", post_list, name="post_list"),
+    path("robots.txt", robots),
     # Scraping
     path("zpdf", zpdf, name="zpdf"),
     path("dpdf", dpdf, name="dpdf"),
