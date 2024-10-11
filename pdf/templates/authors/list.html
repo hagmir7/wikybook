@@ -25,7 +25,7 @@
                                     <h4 class="author-name">
                                         <a href="{% url "show_author" author.slug|default:"404"%}">{{ author.full_name }}</a>
                                     </h4>
-                                    <span class="author-books text-bold">{{ author.book_set.count }} books</span>
+                                    <span class="author-books text-bold">{{ author.books.count }} books</span>
                                 </div>
                             </div>
                         </div>

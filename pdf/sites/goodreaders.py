@@ -235,7 +235,7 @@ def goodreads(request):
 
     else:
         return JsonResponse({"message": "Url and start is required"})
-    for page in range(start, 200):
+    for page in range(start, int(start) + 2):
         print(f"Processing page {page}")
         url = f"{url}?page={page}/"
         try:
