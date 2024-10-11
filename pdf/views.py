@@ -94,28 +94,17 @@ def show_blog(request, slug):
     return render(request, "blogs/show.html", context)
 
 
-# from django.db.models import F
-
-
-from django.db.models import Q
-
-
 def books(request):
-    books_list = Book.objects.all()
-
-    if request.GET.get("query"):
-        query = request.GET.get("query")
-        books_list = books_list.filter(
-            Q(name__icontains=query)
-            | Q(isbn__icontains=query)
-            | Q(description__icontains=query)
-            | Q(tags__icontains=query)
-            | Q(body__icontains=query)
-        )
-
-    # Order the results by name, description, and tags
-    books_list = books_list.order_by("name", "description", "tags")
-
+    if request.GET.get('query'):
+        query = request.GET.get('query')
+        name = Book.objects.filter(name__icontains=query)
+        isbn = Book.objects.filter(isbn__icontains=query)
+        description = Book.objects.filter(description__icontains=query)
+        tags = Book.objects.filter(tags__icontains=query)
+        body = Book.objects.filter(body__icontains=query)
+        books_list = name | isbn | description | tags | body
+    else:
+        books_list = Book.objects.all().order_by("-created_at")
     paginator = Paginator(books_list, 60)
     page_number = request.GET.get("page")
     books = paginator.get_page(page_number)
