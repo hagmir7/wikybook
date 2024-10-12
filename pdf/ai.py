@@ -3,6 +3,7 @@ import openai
 def book_content_ai(book):
     prompt = f"""Give me a long description about this book '{book.name}' by {book.author}. 
             Please follow these guidelines:
+
             1. Use html format.
             3. Use <strong>bold</strong> for important words or phrases.
             4. Include a brief introduction, main themes, key points
@@ -10,6 +11,7 @@ def book_content_ai(book):
             
             7. Content must be as long as posible 
             8. Add Human Touch to the content
+            9. the content most be with this language ({book.language.name})
             Please don't make mstiks return just a result no anothor text
         """
     response = openai.ChatCompletion.create(
