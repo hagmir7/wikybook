@@ -139,6 +139,19 @@ class BookManager(models.Manager):
         return super().get_queryset().filter(removed=None)
 
 
+def generate_slug(title, max_length=50):
+    slug = slugify(title)
+
+    if len(slug) > max_length:
+        slug = slug[:max_length].rstrip("-")
+
+    # Ensure the slug is at least 3 characters long
+    if len(slug) < 3:
+        slug = slug + "-" + get_random_string(10)
+
+    return slug
+
+
 class Book(models.Model):
     name = models.CharField(max_length=300, null=True, blank=True)
     title = models.CharField(max_length=150, null=True, blank=True)
@@ -186,13 +199,9 @@ class Book(models.Model):
     def pre(self):
         return self.get_previous_by_created_at()
 
-
     def save(self, *args, **kwargs):
         if not self.slug:
-            if len(self.name) < 4:
-                self.slug = get_random_string(10)
-            else:
-                self.slug = slugify(self.name)[0:250]
+            self.slug = generate_slug(title=self.name)
         super().save(*args, **kwargs)
 
 
@@ -265,5 +274,5 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         if self.slug == None:
-            self.slug = str(slugify(self.title))[0:49]
+            self.slug = generate_slug(title=self.title)
         super(Post, self).save(*args, **kwargs)
