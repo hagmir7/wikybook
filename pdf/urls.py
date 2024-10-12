@@ -38,6 +38,7 @@ urlpatterns = [
     path("book/list", book_list, name="book_list"),
     path("book/<str:slug>", show_book, name="show_book"),
     path("post/list", post_list, name="post_list"),
+    path("generate/body/body/<int:id>", book_body_generator, name="book_body_generator"),
     path("robots.txt", robots),
     # Scraping
     path("zpdf", zpdf, name="zpdf"),

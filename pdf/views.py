@@ -14,6 +14,7 @@ import json
 import markdown
 from django.views.decorators.http import require_GET
 from django.conf import settings
+from .ai import *
 from django.http import (
     Http404,
     HttpResponseRedirect,
@@ -488,3 +489,11 @@ def generate_post(request, book_id):
     )
 
     return redirect("show_blog", post.slug)
+
+
+def book_body_generator(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.body = str(book_content_ai(book)).replace("```html", "").replace("```", "")
+    book.save()
+
+    return redirect("show_book", book.slug)

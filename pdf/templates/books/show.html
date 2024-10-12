@@ -182,7 +182,8 @@
                     </nav>
                 </div>
                 {% if user.is_superuser %}
-                <a href="{% url 'generate_post' book.id %}" class="btn btn-success">Generate Sumary</a>
+                <a href="{% url 'generate_post' book.id %}" class="btn btn-success">Generate Summary</a>
+                <a href="{% url 'book_body_generator' book.id %}" class="btn btn-success">Regenerate Body</a>
                 {% endif %}
                 <div class="book-description mb-6" itemprop="description">
                     {{ book.body|safe }}
