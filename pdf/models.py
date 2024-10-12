@@ -7,10 +7,6 @@ import uuid
 import os
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-import string
-import random
-
-random_str = "".join(random.choices(string.ascii_letters, k=7))
 
 
 def is_image(file_path):
@@ -185,10 +181,11 @@ class Book(models.Model):
     def pre(self):
         return self.get_previous_by_created_at()
 
+
     def save(self, *args, **kwargs):
         if not self.slug:
-            if len(self.slug):
-                self.slug = random_str
+            if len(self.name) < 4:
+                self.slug = get_random_string(10)
             else:
                 self.slug = slugify(self.name)[0:250]
         super().save(*args, **kwargs)
