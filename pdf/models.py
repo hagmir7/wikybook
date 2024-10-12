@@ -7,6 +7,10 @@ import uuid
 import os
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+import string
+import random
+
+random_str = "".join(random.choices(string.ascii_letters, k=7))
 
 
 def is_image(file_path):
@@ -183,7 +187,10 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)[0:250]
+            if len(self.slug):
+                self.slug = random_str
+            else:
+                self.slug = slugify(self.name)[0:250]
         super().save(*args, **kwargs)
 
 
@@ -236,7 +243,7 @@ class Post(models.Model):
     removed = models.DateField(null=True, blank=True)
 
     def get_absolute_url(self, *args, **kwargs):
-        return f"/p/{self.slug}"
+        return f"/blog/{self.slug}"
 
     class Meta:
         ordering = ["-created_at"]
