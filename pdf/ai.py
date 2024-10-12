@@ -1,7 +1,7 @@
 import openai
 
 def book_content_ai(book):
-    prompt = f"""Give me a long description about this book '{book.name}' by {book.author}. 
+    prompt = f"""Give me a long description about this book '{book.name}' by {book.author.full_name}. 
             Please follow these guidelines:
 
             1. Use html format.

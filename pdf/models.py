@@ -93,12 +93,15 @@ class Category(models.Model):
         if self.slug == None:
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
-    
+
     def next(self):
         return Category.objects.filter(id__gt=self.id).order_by('id').first()
 
     def previous(self):
         return Category.objects.filter(id__lt=self.id).order_by('-id').first()
+
+    def get_absolute_url(self, *args, **kwargs):
+        return f"/category/{self.slug}"
 
     def __str__(self):
         return self.name
@@ -118,7 +121,9 @@ class Author(models.Model):
             self.slug = slugify(self.full_name)[0:250]
         super(Author, self).save(*args, **kwargs)
 
-    
+    def get_absolute_url(self, *args, **kwargs):
+        return f"/author/{self.slug}/books"
+
     def next(self):
         return self.get_next_by_created_at()
 
