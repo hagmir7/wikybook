@@ -204,20 +204,13 @@
                         {% endif %}
                     </div>
                     <div class="col-12 col-sm">
-                    <h3 class="mb-0 fs-6">{{ book.author.full_name }} <small class="text-muted">✍️</small></h3>
+                    <h3 class="mb-0 fs-6">{{ book.author.full_name }}</h3>
                     <p class="text-muted mb-2 mb-sm-0">{{ book.author.books.count }} books</p>
                     </div>
                     <div class="col-12 col-sm-auto">
                         <a href="{% url 'show_author' book.author.slug %}" class="btn btn-dark px-5 rounded-pill w-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                                <path d="m8.818 15.182l6.364-6.364m-4.95 0h4.95v4.95" />
-                                <path
-                                    d="M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z" />
-                            </g>
-                        </svg>
-                        More 
-
+                            <span>More</span> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg>
                         </a>
                     </div>
                 </div>
@@ -231,9 +224,6 @@
                {% endif %}
             </div>
             </div>
-
-           
-
                 <style>
                     @media (max-width: 575.98px) {
                     h2 {
