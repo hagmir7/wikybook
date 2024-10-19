@@ -63,7 +63,12 @@
             </div>
 
             <div class="col-lg-9">
+                {% if book.name|length >= 60 %}
+                <h1 itemprop="name" class="h3" dir="auto">{{ book.name }}</h1>
+                {% else %}
                 <h1 itemprop="name" class="h3" dir="auto">{{ book.name }} {% trans "by" %} {{ book.author.full_name}}</h1>
+                {% endif %}
+                
                 <div class="book-rating general" itemprop="aggregateRating" itemscope
                     itemtype="http://schema.org/AggregateRating">
                     <div class="d-flex align-items-center gap-2">

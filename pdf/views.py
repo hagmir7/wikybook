@@ -43,6 +43,7 @@ def robots(request):
         "Disallow: /private/",
         "Disallow: /admin",
         "Disallow: /api/",
+        "Disallow: /generate/",
         "",
         "User-agent: Googlebot",
         "Disallow: /search/",
@@ -494,6 +495,6 @@ def generate_post(request, book_id):
 def book_body_generator(request, id):
     book = get_object_or_404(Book, id=id)
     book.body = str(book_content_ai(book)).replace("```html", "").replace("```", "")
+    book.verified = True
     book.save()
-
     return redirect("show_book", book.slug)
