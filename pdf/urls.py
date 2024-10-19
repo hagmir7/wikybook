@@ -4,11 +4,9 @@ from pdf.sites.zpdf import zpdf
 from pdf.sites.dpdf import dpdf
 from pdf.sites.pdfjatt import pdfjatt
 from pdf.sites.archive import archive
+from pdf.sites.thegreatestbooks import thegreatestbooks
 
 from pdf.sites.goodreaders import goodreads, one_book
-
-
-
 
 
 urlpatterns = [
@@ -46,6 +44,7 @@ urlpatterns = [
     path("pdfjatt", pdfjatt, name="pdfjatt"),
     path("archive", archive, name="archive"),
     path("goodreads", goodreads, name="goodreads"),
+    path("thegreatestbooks", thegreatestbooks, name="thegreatestbooks"),
     # scrap
     path("scrap", scrap, name="scrap"),
     path("goodreads-one-book", one_book, name="goodreads_one_book"),
