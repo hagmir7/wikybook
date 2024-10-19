@@ -181,7 +181,7 @@ def get_book(url):
 
 def thegreatestbooks(request):
     books_processed = 0
-    for book_id in range(5270, 22821 + 1):
+    for book_id in range(8929, 22821 + 1):
         try:
             url = f"https://thegreatestbooks.org/books/{book_id}"
             book_data = get_book(url)
