@@ -181,7 +181,12 @@ def get_book(url):
 
 def thegreatestbooks(request):
     books_processed = 0
-    for book_id in range(11237, 22821 + 1):
+    if request.GET.get("start"):
+        start = request.GET.get("start")
+    else:
+        start = 11240
+
+    for book_id in range(int(start), 22821 + 1):
         try:
             url = f"https://thegreatestbooks.org/books/{book_id}"
             book_data = get_book(url)
