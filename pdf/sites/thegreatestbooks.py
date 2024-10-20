@@ -111,7 +111,7 @@ def process_book_data(data):
                 )[:300],
                 "isbn13": data.get("isbn13"),
                 "body": str(body_description),
-                "tags": ", ".join(data.get("genres", []))[:3],
+                "tags": ", ".join(data.get("genres", [])),
                 "category": category,
                 "publication_date": date_format(int(data.get("published"))),
                 "pages": second_part,
