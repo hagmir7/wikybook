@@ -184,7 +184,7 @@ def thegreatestbooks(request):
     if request.GET.get("start"):
         start = request.GET.get("start")
     else:
-        start = 11240
+        start = 22821
 
     for book_id in range(int(start), 22821 + 1):
         try:
