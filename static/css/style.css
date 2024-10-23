@@ -2931,7 +2931,7 @@ h6 {
 }
 
 .mini-list-posts .post-meta {
-    color: #9C9C9C;
+    color: #3d3c3c;
     font-size: .8rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2990,7 +2990,7 @@ h6 {
 }
 
 .blog-posts .post .post-meta {
-    color: #9C9C9C;
+    color: #3d3c3c;
     font-size: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
